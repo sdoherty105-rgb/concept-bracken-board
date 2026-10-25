@@ -46,7 +46,6 @@ for (const { path, h1 } of pages) {
 
     test("has no WCAG 2.2 AA violations detectable by axe", async ({ page }) => {
       await page.goto(path);
-      await page.evaluate(() => document.querySelectorAll("img").forEach((i) => (i.loading = "eager")));
       await page.waitForLoadState("networkidle");
       const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
       expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
@@ -157,9 +156,9 @@ test.describe("before/after slider", () => {
     await page.goto("/");
     const compare = page.locator(".compare").first();
     await compare.scrollIntoViewIfNeeded();
-    const images = compare.locator("img");
-    await expect(images).toHaveCount(2);
-    const [a, b] = await Promise.all([images.nth(0).boundingBox(), images.nth(1).boundingBox()]);
+    const scenes = compare.locator(".compare__pane svg");
+    await expect(scenes).toHaveCount(2);
+    const [a, b] = await Promise.all([scenes.nth(0).boundingBox(), scenes.nth(1).boundingBox()]);
     expect(a && b).toBeTruthy();
     expect(b!.y).toBeGreaterThan(a!.y + a!.height - 1);
     await expect(compare.getByText("Before", { exact: true })).toBeVisible();

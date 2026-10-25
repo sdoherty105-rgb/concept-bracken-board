@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "playwright test",
     "lhci": "lhci autorun --config=lighthouserc.json",
-    "art": "node scripts/generate-art.mjs",
+    "art": "node scripts/generate-art.mjs && node scripts/svg-to-components.mjs",
     "screens": "node scripts/screenshots.mjs",
     "cf:build": "opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"

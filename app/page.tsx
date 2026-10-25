@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArtIllustration } from "@/components/art";
 import CompareSlider from "@/components/CompareSlider";
 import QuoteForm from "@/components/QuoteForm";
 import { materials, projects, services, steps } from "@/lib/content";
@@ -35,13 +36,10 @@ export default function Home() {
             </ul>
           </div>
           <figure className="hero__art">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/art/hero.svg"
+            <ArtIllustration
+              id="hero"
               alt="Illustration of a timber deck outdoor room with a long dining table, a slender tree, a limestone planter wall and a sliding glass door."
-              width={1000}
-              height={1200}
-              decoding="async"
+              className="hero__art__svg"
             />
             <figcaption>Illustration. A fictional Bracken &amp; Board outdoor room.</figcaption>
           </figure>
@@ -102,7 +100,7 @@ export default function Home() {
                 ))}
               </ul>
               <p>
-                <Link href="/projects" className="link-arrow">
+                <Link href="/projects" className="text-link">
                   See all three transformations
                 </Link>
               </p>

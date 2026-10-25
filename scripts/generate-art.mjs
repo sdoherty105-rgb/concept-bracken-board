@@ -399,7 +399,7 @@ function terraceAfter() {
   [160, 420, 560, 880, 1060].forEach((x, i) => (s += grass(x, HZ + 46, { n: 16, h: 100 + (i % 3) * 20, color: i % 2 ? C.sage : "#A6B396", seed: i + 40, width: 2.6 })));
   s += tree(660, HZ + 50, { h: 190, canopy: 80, seed: 6 });
   const stepG = { yb: HZ + 114, yf: H, xlb: 440, xrb: 760, xlf: 330, xrf: 870 };
-  s += poly([[stepG.xlb, stepG.yb], [stepG.xrb, stepG.yb], [stepG.xrf, H], [stepG.xlf, H]], 'fill="#CFC6B2" opacity=".0"/>');
+  s += poly([[stepG.xlb, stepG.yb], [stepG.xrb, stepG.yb], [stepG.xrf, H], [stepG.xlf, H]], 'fill="#CFC6B2" opacity="0"');
   const stones = [[600, 590, 150, 24], [580, 640, 190, 30], [620, 700, 230, 36], [590, 770, 280, 44]];
   stones.forEach(([cx, cy, w, h]) => (s += `<ellipse cx="${cx}" cy="${cy + 4}" rx="${w / 2}" ry="${h / 2 + 2}" fill="#000" opacity=".15"/><rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="5" fill="#E3DCCB"/><rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="5" rx="3" fill="#fff" opacity=".5"/>`));
   const px = 960;

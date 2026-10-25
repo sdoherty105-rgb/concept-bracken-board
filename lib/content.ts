@@ -1,3 +1,5 @@
+import type { ArtId } from "@/components/art";
+
 export const SITE = {
   name: "Bracken & Board",
   slug: "bracken-board",
@@ -135,8 +137,8 @@ export type Project = {
   brief: string;
   scope: string[];
   materials: string[];
-  before: { src: string; alt: string };
-  after: { src: string; alt: string };
+  before: { art: ArtId; alt: string };
+  after: { art: ArtId; alt: string };
 };
 
 export const projects: Project[] = [
@@ -154,11 +156,11 @@ export const projects: Project[] = [
     ],
     materials: ["Spotted gum", "Powder-coated steel", "Native grasses"],
     before: {
-      src: "/art/deck-before.svg",
+      art: "deck-before",
       alt: "Illustration of a courtyard before the work: a cracked concrete slab with weeds in the gaps, patchy dry lawn, a rotary clothesline and a bin against the house wall.",
     },
     after: {
-      src: "/art/deck-after.svg",
+      art: "deck-after",
       alt: "Illustration of the same courtyard after the work: a timber deck with a built-in bench and cushions, a green planter box with shrubs and grasses, and potted plants.",
     },
   },
@@ -176,11 +178,11 @@ export const projects: Project[] = [
     ],
     materials: ["Limestone-toned pavers", "Limestone walling", "Dark mulch"],
     before: {
-      src: "/art/entry-before.svg",
+      art: "entry-before",
       alt: "Illustration of a front entry before the work: bare sandy soil, a cracked concrete path with weeds, a pile of loose bricks and a few scattered pavers.",
     },
     after: {
-      src: "/art/entry-after.svg",
+      art: "entry-after",
       alt: "Illustration of the same entry after the work: a path of large pale pavers leading to the front door, mulched beds with grasses and shrubs, small path lights and a low limestone wall.",
     },
   },
@@ -198,11 +200,11 @@ export const projects: Project[] = [
     ],
     materials: ["Limestone", "Spotted gum pergola", "Turf and natives"],
     before: {
-      src: "/art/garden-before.svg",
+      art: "garden-before",
       alt: "Illustration of a backyard before the work: bare dry ground with scattered weeds, a stack of old timber sleepers, a rusty drum and a plain fence.",
     },
     after: {
-      src: "/art/garden-after.svg",
+      art: "garden-after",
       alt: "Illustration of the same backyard after the work: a limestone terrace wall along the fence with planted beds and a small tree, stepping stones across green lawn, and a timber pergola with a bench.",
     },
   },

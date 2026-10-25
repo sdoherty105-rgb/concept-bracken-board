@@ -403,19 +403,17 @@ a {
   line-height: 1.65;
 }
 
-.link-arrow {
+.text-link {
   display: inline-block;
   padding: 0.4rem 0;
   font-weight: 700;
-  text-decoration: none;
-  border-bottom: 2px solid var(--timber);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--timber);
 }
 
-.link-arrow::after {
-  content: " \2192";
-}
-
-.link-arrow:hover {
+.text-link:hover {
   color: var(--timber-deep);
 }
 
@@ -507,28 +505,16 @@ a {
   text-transform: uppercase;
 }
 
-.hero__tags li + li::before {
-  content: "";
-  display: inline-block;
-  width: 0.35rem;
-  height: 0.35rem;
-  margin-right: 1.75rem;
-  background: var(--timber);
-  vertical-align: 0.15em;
-}
-
 .hero__art {
   position: relative;
 }
 
-.hero__art img {
+.hero__art__svg {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
   max-height: 34rem;
-  object-fit: cover;
-  object-position: 50% 45%;
   background: var(--stone);
 }
 
@@ -546,10 +532,9 @@ a {
   .hero__title {
     font-size: clamp(4.5rem, 8vw, 7.75rem);
   }
-  .hero__art img {
+  .hero__art__svg {
     aspect-ratio: 5 / 6;
     max-height: none;
-    object-position: 50% 50%;
   }
 }
 
@@ -613,22 +598,7 @@ a {
 }
 
 .ticks li {
-  position: relative;
-  padding: 0.4rem 0 0.4rem 1.6rem;
-}
-
-.ticks li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 1.05rem;
-  width: 0.7rem;
-  height: 2px;
-  background: var(--timber);
-}
-
-.on-dark .ticks li::before {
-  background: var(--sage);
+  padding: 0.4rem 0;
 }
 
 @media (min-width: 62rem) {
@@ -643,7 +613,7 @@ a {
   position: relative;
 }
 
-.compare__pane img {
+.compare__art {
   display: block;
   width: 100%;
   height: auto;
@@ -695,9 +665,9 @@ a {
     margin-top: 0;
   }
 
-  .compare__pane img {
+  .compare__art {
     height: 100%;
-    object-fit: cover;
+    width: 100%;
   }
 
   .compare__pane--after {
@@ -829,16 +799,6 @@ a {
   position: relative;
   padding-top: 1.75rem;
   border-top: 2px solid var(--forest);
-}
-
-.steps__item::before {
-  content: "";
-  position: absolute;
-  top: -0.4rem;
-  left: 0;
-  width: 0.7rem;
-  height: 0.7rem;
-  background: var(--timber);
 }
 
 .steps__n {
@@ -1162,10 +1122,8 @@ a {
   gap: 0.6rem;
 }
 
-.crumbs li + li::before {
-  content: "/";
-  margin-right: 0.6rem;
-  color: var(--timber-deep);
+.crumbs li + li {
+  margin-left: 0.6rem;
 }
 
 .crumbs a {

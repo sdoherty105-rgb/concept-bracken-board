@@ -32,11 +32,11 @@ export default function ProjectsPage() {
         <section key={p.id} className={`section project${i % 2 ? " section--stone" : ""}`} id={p.id} aria-labelledby={`${p.id}-title`}>
           <div className="container">
             <div className="project__head">
-              <p className="eyebrow">{`0${i + 1} · ${p.kicker}`}</p>
+              <p className="eyebrow">{`0${i + 1}, ${p.kicker}`}</p>
               <h2 id={`${p.id}-title`} className="h2">{p.title}</h2>
             </div>
             <div className="feature">
-              <CompareSlider before={p.before} after={p.after} title={p.title} priority={i === 0} />
+              <CompareSlider before={p.before} after={p.after} title={p.title} />
               <div className="feature__meta">
                 <p>{p.brief}</p>
                 <h3 className="meta-h">What we did</h3>
