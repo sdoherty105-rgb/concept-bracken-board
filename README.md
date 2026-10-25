@@ -46,3 +46,8 @@ Locally, set `PW_CHROME_PATH` to use an installed Chrome instead of Playwright's
 See `ASSETS.md` for the source and licence of every asset.
 
 This repository is not deployed and no domain is configured.
+
+
+## Visual redesign
+
+A landscape project journal replaces the generic copy-and-illustration hero. The opening design study includes the working before/after slider, followed by staggered project drawings, service scope, a two-column construction process and a material specification list. Illustrated concepts are labelled clearly. Quote validation, slider keyboard/pointer support, no-JavaScript fallback and no-network form behaviour are retained.

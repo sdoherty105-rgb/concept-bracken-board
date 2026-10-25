@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 const LABEL = "An OFF/SHIFT concept — fictional demonstration";
 const CONCEPT_URL = "https://offshiftstudio.com.au/concepts/bracken-board";
 const pages = [
-  { path: "/", h1: /make room for outside/i },
+  { path: "/", h1: /Built for\s*life outside\./i },
   { path: "/projects", h1: /before, and after/i },
 ];
 
@@ -180,3 +180,4 @@ test("mobile menu opens and navigates without JavaScript errors", async ({ brows
   expect(errors).toEqual([]);
   await context.close();
 });
+
