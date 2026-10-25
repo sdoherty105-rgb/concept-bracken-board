@@ -9,40 +9,13 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="container hero__grid">
-          <div className="hero__copy">
-            <p className="eyebrow">Landscaping and outdoor construction</p>
-            <h1 id="hero-title" className="hero__title">
-              Make room for outside.
-            </h1>
-            <p className="lede">
-              Decks, paving and gardens, designed and built as one calm, considered space. We take the yard you walk past and turn it into the
-              room you live in.
-            </p>
-            <div className="hero__actions">
-              <Link href="/#quote" className="btn">
-                Request a quote
-              </Link>
-              <Link href="/#transformations" className="btn btn--ghost">
-                See a transformation
-              </Link>
-            </div>
-            <ul className="hero__tags" aria-label="What we build">
-              <li>Decks</li>
-              <li>Paving</li>
-              <li>Retaining</li>
-              <li>Gardens</li>
-            </ul>
-          </div>
-          <figure className="hero__art">
-            <ArtIllustration
-              id="hero"
-              alt="Illustration of a timber deck outdoor room with a long dining table, a slender tree, a limestone planter wall and a sliding glass door."
-              className="hero__art__svg"
-            />
-            <figcaption>Illustration. A fictional Bracken &amp; Board outdoor room.</figcaption>
-          </figure>
+      <section className="landscape-front" id="transformations" aria-labelledby="hero-title">
+        <div className="container">
+          <div className="landscape-overline"><span>Landscaping &amp; outdoor construction</span><span>Western Australia</span></div>
+          <div className="landscape-heading"><h1 id="hero-title">Built for<br />life outside.</h1><p>Decks, gardens and outdoor rooms.<br />Designed and built together.</p></div>
+          <div className="landscape-study"><div className="study-caption"><span>Design study / 01</span><span>{featured.kicker}</span></div><CompareSlider before={featured.before} after={featured.after} title={featured.title} /></div>
+          <div className="landscape-caption"><h2>{featured.title}</h2><p>A timber deck, built-in seating and a garden at the kitchen door.</p><Link href="/projects#courtyard-deck">Explore the study</Link></div>
+          <p className="study-note">Illustrated concept. Use the handle to compare the existing space and proposed design.</p>
         </div>
       </section>
 
@@ -51,10 +24,10 @@ export default function Home() {
           <div className="split__head">
             <p className="eyebrow">Services</p>
             <h2 id="services-title" className="h2">
-              One team from first sketch to last plant.
+              The whole outdoor space.
             </h2>
             <p className="lede">
-              Outdoor spaces work when the deck, the paving and the planting are designed together. So we design and build all three, in house.
+              A deck needs to meet the garden. Paving needs to handle the rain. We design the space as a whole, then build each part to work together.
             </p>
           </div>
           <ol className="services">
@@ -76,45 +49,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section--stone" id="transformations" aria-labelledby="transform-title">
-        <div className="container">
-          <div className="section__head">
-            <p className="eyebrow">Transformations</p>
-            <h2 id="transform-title" className="h2">
-              From forgotten to lived in.
-            </h2>
-            <p className="lede">
-              Drag the handle to compare the same space before and after. These are illustrations of fictional projects.
-            </p>
-          </div>
-          <div className="feature">
-            <CompareSlider before={featured.before} after={featured.after} title={featured.title} />
-            <div className="feature__meta">
-              <p className="eyebrow">{featured.kicker}</p>
-              <h3 className="h3 h3--lg">{featured.title}</h3>
-              <p>{featured.brief}</p>
-              <h4 className="meta-h">What we did</h4>
-              <ul className="ticks">
-                {featured.scope.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
-              <p>
-                <Link href="/projects" className="text-link">
-                  See all three transformations
-                </Link>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="section section--stone landscape-journal" id="projects" aria-labelledby="journal-title"><div className="container">
+        <div className="journal-heading"><p className="eyebrow">The project journal</p><h2 id="journal-title" className="h2">Three spaces.<br />Three ways to use them.</h2><Link href="/projects">View all design studies</Link></div>
+        <div className="journal-projects">{projects.map((project, i) => <article key={project.id} className="journal-project"><Link href={`/projects#${project.id}`} className="journal-image" aria-label={`Explore ${project.title}`}><ArtIllustration id={project.after.art} alt={project.after.alt} /></Link><div className="journal-meta"><span>0{i + 1}</span><h3>{project.title}</h3><p>{project.kicker}</p></div></article>)}</div>
+      </div></section>
 
       <section className="section" id="process" aria-labelledby="process-title">
         <div className="container">
           <div className="section__head">
             <p className="eyebrow">Process</p>
             <h2 id="process-title" className="h2">
-              Four steps, no surprises.
+              From site visit to handover.
             </h2>
           </div>
           <ol className="steps">
@@ -134,7 +79,7 @@ export default function Home() {
           <div className="section__head">
             <p className="eyebrow">Materials</p>
             <h2 id="materials-title" className="h2">
-              Honest materials that age well.
+              Timber, stone &amp; planting.
             </h2>
             <p className="lede">
               We choose a small palette of natural materials and use them with restraint. Each is picked for how it looks in ten years, not only
@@ -178,3 +123,4 @@ export default function Home() {
     </>
   );
 }
+

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import SiteHeader, { ConceptBar } from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
+import "./landscape.css";
 
 const display = localFont({
   src: "./fonts/cormorant-garamond-latin-500-normal.woff2",
@@ -51,3 +52,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
