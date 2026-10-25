@@ -1,0 +1,11 @@
+node_modules
+.next
+.open-next
+.wrangler
+out
+*.tsbuildinfo
+playwright-report
+test-results
+.lighthouseci
+.env*
+.DS_Store
