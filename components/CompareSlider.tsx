@@ -1,13 +1,13 @@
 "use client";
 
-import { ArtIllustration, type ArtId } from "@/components/art";
+import Photo from "@/components/Photo";
+import type { Plate } from "@/lib/content";
 import { useId, useState, type CSSProperties } from "react";
 
-type Side = { art: ArtId; alt: string };
-
 type Props = {
-  before: Side;
-  after: Side;
+  before: Plate;
+  after: Plate;
+  sizes: string;
   beforeLabel?: string;
   afterLabel?: string;
   title: string;
@@ -19,6 +19,7 @@ export default function CompareSlider({
   beforeLabel = "Before",
   afterLabel = "After",
   title,
+  sizes,
 }: Props) {
   const [value, setValue] = useState(50);
   const hintId = useId();
@@ -27,13 +28,13 @@ export default function CompareSlider({
     <div className="compare" data-testid="compare">
       <div className="compare__stage" style={{ "--v": value / 100 } as CSSProperties}>
         <figure className="compare__pane compare__pane--before">
-          <ArtIllustration id={before.art} alt={before.alt} className="compare__art" preserveAspectRatio="xMidYMid slice" />
+          <Photo photo={before.photo} alt={before.alt} sizes={sizes} className="compare__img" />
           <figcaption>
             <span className="compare__tag">{beforeLabel}</span>
           </figcaption>
         </figure>
         <figure className="compare__pane compare__pane--after">
-          <ArtIllustration id={after.art} alt={after.alt} className="compare__art" preserveAspectRatio="xMidYMid slice" />
+          <Photo photo={after.photo} alt={after.alt} sizes={sizes} className="compare__img" />
           <figcaption>
             <span className="compare__tag">{afterLabel}</span>
           </figcaption>
@@ -55,7 +56,7 @@ export default function CompareSlider({
         </div>
       </div>
       <p className="compare__hint" id={hintId}>
-        Drag the handle, tap anywhere on the image, or focus it and use the Left and Right keys. Home and End jump to each side.
+        Drag across the plate, or use the Left and Right keys. Home and End jump to each side.
       </p>
     </div>
   );

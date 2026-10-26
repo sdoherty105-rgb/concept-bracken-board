@@ -1,47 +1,48 @@
 import Link from "next/link";
-import { SITE } from "@/lib/content";
+import StartLink from "./StartLink";
+import { SITE, practice } from "@/lib/content";
 
 export default function SiteFooter() {
   return (
-    <footer className="site-footer on-dark">
-      <div className="container site-footer__grid">
-        <div className="site-footer__brand">
-          <p className="site-footer__name">{SITE.name}</p>
-          <p>Landscaping and outdoor construction. Decks, paving and gardens, designed and built as one.</p>
+    <footer className="colophon">
+      <div className="colophon__grid">
+        <h2 className="colophon__title">The practice</h2>
+        <div className="colophon__text">
+          <p className="colophon__lede">{practice.lede}</p>
+          <p>
+            <strong>What we build.</strong> {practice.work}
+          </p>
+          <p>
+            <strong>How it works.</strong> {practice.how}
+          </p>
         </div>
-        <nav aria-label="Footer" className="site-footer__col">
-          <h2 className="site-footer__h">Explore</h2>
-          <ul>
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/#transformations">Transformations</Link></li>
-            <li><Link href="/#process">Process</Link></li>
-            <li><Link href="/#materials">Materials</Link></li>
-            <li><Link href="/projects">All projects</Link></li>
-            <li><Link href="/#quote">Request a quote</Link></li>
-          </ul>
-        </nav>
-        <div className="site-footer__col">
-          <h2 className="site-footer__h">Studio</h2>
+        <div className="colophon__contact">
+          <h3>Visits by appointment</h3>
           <address>
-            <p>Studio and yard visits by appointment</p>
             <p>Perth, Western Australia</p>
             <p>{SITE.email}</p>
             <p>{SITE.phone}</p>
           </address>
+          <p>
+            <StartLink className="underline-link">Start a project</StartLink>
+          </p>
+          <p>
+            <Link prefetch={false} className="underline-link" href="/projects">
+              Index of projects
+            </Link>
+          </p>
         </div>
       </div>
-      <div className="container">
-        <div className="site-footer__legal">
+      <div className="colophon__legal">
         <p>
-          {SITE.name} is a fictional business. The projects, prices and contact details on this site are invented for demonstration, and the
-          forms do not send anything.
+          {SITE.name} is a fictional business. The projects, places and contact details are invented, the plates are illustrations made for
+          this concept, and the forms do not send anything.
         </p>
         <p>
           <a href={SITE.conceptUrl} rel="noopener">
             {SITE.conceptLabel}
           </a>
         </p>
-        </div>
       </div>
     </footer>
   );

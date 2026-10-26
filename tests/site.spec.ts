@@ -4,8 +4,9 @@ import AxeBuilder from "@axe-core/playwright";
 const LABEL = "An OFF/SHIFT concept — fictional demonstration";
 const CONCEPT_URL = "https://offshiftstudio.com.au/concepts/bracken-board";
 const pages = [
-  { path: "/", h1: /Built for\s*life outside\./i },
-  { path: "/projects", h1: /before, and after/i },
+  { path: "/", h1: /a working archive of gardens, decks and paving/i },
+  { path: "/projects", h1: /index of projects/i },
+  { path: "/start", h1: /start a project/i },
 ];
 
 for (const { path, h1 } of pages) {
@@ -74,7 +75,7 @@ test("robots.txt disallows everything", async ({ request }) => {
 
 test.describe("quote form (demo only)", () => {
   test("validates, shows a demo success state and never makes a network request", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/start");
     await page.waitForLoadState("networkidle");
 
     const requests: string[] = [];
@@ -110,7 +111,7 @@ test.describe("quote form (demo only)", () => {
   });
 
   test("form markup has no network action and no named fields", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/start");
     const action = await page.getByTestId("quote-form").getAttribute("action");
     expect(action).toBe("#quote-demo-sent");
     const named = await page.getByTestId("quote-form").locator("input[name], select[name], textarea[name]").count();
@@ -156,7 +157,7 @@ test.describe("before/after slider", () => {
     await page.goto("/");
     const compare = page.locator(".compare").first();
     await compare.scrollIntoViewIfNeeded();
-    const scenes = compare.locator(".compare__pane svg");
+    const scenes = compare.locator(".compare__pane img");
     await expect(scenes).toHaveCount(2);
     const [a, b] = await Promise.all([scenes.nth(0).boundingBox(), scenes.nth(1).boundingBox()]);
     expect(a && b).toBeTruthy();
@@ -168,16 +169,61 @@ test.describe("before/after slider", () => {
   });
 });
 
-test("mobile menu opens and navigates without JavaScript errors", async ({ browser }) => {
+test.describe("quote drawer", () => {
+  test("opens from a project on its project type, and closes with Escape", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.locator("#entry-path").getByRole("link", { name: "Start a project like this" }).click();
+    const drawer = page.getByRole("dialog", { name: "Start a project" });
+    await expect(drawer).toBeVisible();
+    await expect(drawer.getByLabel(/project type/i)).toHaveValue("Paving or entry");
+    await page.keyboard.press("Escape");
+    await expect(drawer).toBeHidden();
+    await expect(page).toHaveURL(/\/$/);
+  });
+
+  test("falls back to the /start page without JavaScript, keeping the project type in the link", async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto("/");
+    const link = page.locator("#terraced-garden").getByRole("link", { name: "Start a project like this" });
+    await expect(link).toHaveAttribute("href", "/start?type=Retaining%20walls%20or%20terraces");
+    await link.click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/start a project/i);
+    await context.close();
+  });
+
+  test("/start picks up the project type from the link", async ({ page }) => {
+    await page.goto("/start?type=Deck%20or%20screening");
+    await expect(page.getByLabel(/project type/i)).toHaveValue("Deck or screening");
+  });
+});
+
+test("index overlay lists the projects and closes after a pick", async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
-  await page.getByText("Menu", { exact: true }).click();
-  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Materials" }).click();
-  await expect(page).toHaveURL(/#materials/);
+  await page.waitForLoadState("networkidle");
+  await page.locator(".index summary").click();
+  const panel = page.locator(".index__panel");
+  await expect(panel).toBeVisible();
+  await panel.getByRole("link", { name: /the entry path/i }).click();
+  await expect(page).toHaveURL(/#entry-path/);
+  await expect(panel).toBeHidden();
   expect(errors).toEqual([]);
   await context.close();
 });
 
+test("the plate rail marks the project in view on wide screens", async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await context.newPage();
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  const rail = page.getByRole("navigation", { name: "Projects" });
+  await expect(rail).toBeVisible();
+  await page.locator("#terraced-garden .sheet").scrollIntoViewIfNeeded();
+  await expect(rail.locator('a[aria-current="location"]')).toHaveAttribute("href", "#terraced-garden");
+  await context.close();
+});

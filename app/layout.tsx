@@ -3,15 +3,6 @@ import localFont from "next/font/local";
 import SiteHeader, { ConceptBar } from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
-import "./landscape.css";
-
-const display = localFont({
-  src: "./fonts/cormorant-garamond-latin-500-normal.woff2",
-  weight: "500",
-  style: "normal",
-  variable: "--font-display",
-  display: "swap",
-});
 
 const body = localFont({
   src: "./fonts/manrope-latin-wght-normal.woff2",
@@ -32,14 +23,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#24352B",
+  themeColor: "#E8E4DA",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-AU" className={`${display.variable} ${body.variable}`}>
+    <html lang="en-AU" className={body.variable}>
       <body>
         <a className="skip-link" href="#main">
           Skip to content

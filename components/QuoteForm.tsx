@@ -30,15 +30,27 @@ function validate(v: Values): Errors {
   return e;
 }
 
-export default function QuoteForm() {
-  const [values, setValues] = useState<Values>(empty);
+type Props = {
+  /** The project type to start on. */
+  initialType?: string;
+  /** Read the starting project type from ?type= in the address (the /start page). */
+  fromQuery?: boolean;
+};
+
+export default function QuoteForm({ initialType, fromQuery = false }: Props) {
+  const [values, setValues] = useState<Values>(() => ({ ...empty, projectType: projectTypes.includes(initialType ?? "") ? initialType! : "" }));
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState<Values | null>(null);
   const [enhanced, setEnhanced] = useState(false);
   const successRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setEnhanced(true), []);
+  useEffect(() => {
+    setEnhanced(true);
+    if (!fromQuery) return;
+    const type = new URLSearchParams(window.location.search).get("type");
+    if (type && projectTypes.includes(type)) setValues((prev) => ({ ...prev, projectType: type }));
+  }, [fromQuery]);
 
   useEffect(() => {
     if (submitted) successRef.current?.focus();
@@ -72,7 +84,7 @@ export default function QuoteForm() {
   if (submitted) {
     return (
       <div className="form-success" ref={successRef} tabIndex={-1} role="status" data-testid="quote-success">
-        <p className="eyebrow">Demo only</p>
+        <p className="form-success__kicker">Demo only</p>
         <h3>Thanks, {submitted.name.trim().split(" ")[0]}. Nothing was sent.</h3>
         <p>
           This is a fictional concept website, so your quote request was not sent, stored or shared anywhere. On a real site, this is where the
@@ -83,7 +95,7 @@ export default function QuoteForm() {
           <div><dt>Budget</dt><dd>{submitted.budget}</dd></div>
           {submitted.suburb.trim() && <div><dt>Suburb</dt><dd>{submitted.suburb}</dd></div>}
         </dl>
-        <button type="button" className="btn btn--ghost" onClick={reset}>
+        <button type="button" className="text-button" onClick={reset}>
           Clear and start again
         </button>
       </div>
@@ -178,7 +190,7 @@ export default function QuoteForm() {
         <textarea rows={4} value={values.details} onChange={set("details")} {...field("details")} />
       </div>
 
-      <button type="submit" className="btn btn--wide">
+      <button type="submit" className="form__submit">
         Send demo quote request
       </button>
       <p className="form__fine">Fields marked * are required. This form is a demonstration and never sends your details.</p>
