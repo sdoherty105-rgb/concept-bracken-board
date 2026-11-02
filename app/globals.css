@@ -94,6 +94,10 @@ a:hover {
   margin: 0 0 8px;
 }
 
+span.label {
+  margin-right: 1em;
+}
+
 .nums,
 .plaque dd,
 .bond-result dd {
@@ -642,7 +646,7 @@ main {
   grid-template-columns: minmax(0, 14rem) 1fr;
   gap: 12px;
   border-top: 3px solid var(--ink);
-  padding: 8px 0;
+  padding: 10px 0 10px 16px;
 }
 
 .spec dt {

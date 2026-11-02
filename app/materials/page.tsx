@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 };
 
 const rest = materials.slice(1);
-const spans = ["g-1-7", "g-8-5", "g-1-8"];
+const spans = ["g-1-7", "g-8-5", "g-1-12"];
 
 export default function MaterialsPage() {
   const limestone = materials[0];
   return (
     <>
       <link rel="preload" as="image" href="/photos/swatch-limestone-800.avif" fetchPriority="high" />
-      <header className="lead-specimen">
+      <header className="lead-specimen" id="limestone">
         <div className="lead-specimen__copy">
           <p className="label">Materials</p>
           <h1>The specimen wall.</h1>
@@ -29,8 +29,10 @@ export default function MaterialsPage() {
       </header>
       <section className="course" aria-labelledby="spec-title" data-layout="specimen-wall">
         <div className="course__intro">
-          <h2 id="spec-title">{limestone.name}.</h2>
-          <p>{limestone.note} {limestone.spec}. Demonstration specification, not a supply list and not a price.</p>
+          <h2 id="spec-title">Four materials, used hard.</h2>
+          <p>
+            {limestone.name}: {limestone.note} {limestone.spec}. Demonstration specification, not a supply list and not a price.
+          </p>
         </div>
         <div className="wall">
           {rest.map((m, i) => (
@@ -44,12 +46,6 @@ export default function MaterialsPage() {
               </div>
             </article>
           ))}
-          <article id="limestone" className="g-9-4 block-pad">
-            <p className="label">{limestone.use}</p>
-            <h3>{limestone.name}</h3>
-            <p className="nums">{limestone.spec}</p>
-            <p>{limestone.note}</p>
-          </article>
           <article id="planting" className="g-1-7 block-pad block--moss">
             <p className="label">Planting</p>
             <h3>Banksia, lomandra, kangaroo paw.</h3>
