@@ -5,7 +5,7 @@ import { materials } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Materials",
-  description: "Limestone, jarrah, crushed gravel and clay pavers. Demonstration specifications for a fictional builder.",
+  description: "An OFF/SHIFT concept — fictional demonstration. Limestone, jarrah, crushed gravel and clay pavers, with demonstration specifications.",
 };
 
 const rest = materials.slice(1);

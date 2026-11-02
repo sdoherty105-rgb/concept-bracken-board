@@ -47,7 +47,7 @@ const wide = (photo: string, alt: string): Plate => ({
   photo,
   alt,
   width: 1600,
-  height: 1200,
+  height: 1067,
   widths: [640, 1100, 1600],
 });
 
@@ -61,12 +61,12 @@ export const swatch = (photo: string, alt: string): Plate => ({
 
 export const heroPlate = wide(
   "hero-wall",
-  "Limestone block wall and jarrah deck boards in hard midday light, with a short shadow across the boards. No people.",
+  "Lit plate of the courtyard after the work: a timber deck, built-in bench, planters and glass doors in dappled light. No people.",
 );
 
 export const planPlate = wide(
   "plan-path",
-  "Top-down plan of a clay paver field, gravel margin, limestone edge and a jarrah deck inset. No people.",
+  "Lit plate of the finished entry: pale pavers to the front door, planted beds and a low limestone wall. No people.",
 );
 
 export type Material = {
@@ -85,7 +85,7 @@ export const materials: Material[] = [
     use: "Walls, edges, steps",
     spec: "Course 200 by 200 by 100 mm",
     note: "Pale, honed, and heavy. It holds a line in the sun and throws light back into a shaded court.",
-    plate: swatch("swatch-limestone", "Close view of limestone blocks laid in running bond, with dark joints."),
+    plate: swatch("swatch-limestone", "Lit plate detail of the limestone wall at the entry, three courses, with planting above it."),
   },
   {
     id: "jarrah",
@@ -93,7 +93,7 @@ export const materials: Material[] = [
     use: "Decks, benches, pergolas",
     spec: "Board 86 by 19 mm",
     note: "Dense Western Australian hardwood. Fixed hidden, oiled if you want the red, or left to silver.",
-    plate: swatch("swatch-jarrah", "Close view of jarrah deck boards with the grain running the length of each board."),
+    plate: swatch("swatch-jarrah", "Lit plate detail of the jarrah deck boards with leaf shade across them."),
   },
   {
     id: "gravel",
@@ -101,7 +101,7 @@ export const materials: Material[] = [
     use: "Paths, beds, drainage",
     spec: "10 mm, compacted",
     note: "The quiet layer. It drains, it locks, and it gives the pavers something honest to sit on.",
-    plate: swatch("swatch-gravel", "Close view of crushed gravel, small stones in warm grey and tan."),
+    plate: swatch("swatch-gravel", "Lit plate detail of the sandy ground beside the old entry path, before the new base."),
   },
   {
     id: "brick",
@@ -109,7 +109,7 @@ export const materials: Material[] = [
     use: "Paths, courts, entries",
     spec: "200 by 100 by 40 mm",
     note: "Laid in bond on a compacted base and a sand bed. The joint is the part that keeps the surface true.",
-    plate: swatch("swatch-brick", "Close view of clay pavers laid in running bond."),
+    plate: swatch("swatch-brick", "Lit plate detail of the pale entry pavers running to the front door."),
   },
 ];
 
@@ -201,7 +201,7 @@ export const projects: Project[] = [
     ),
     after: scene(
       "deck-after",
-      "The same courtyard after the work: jarrah deck boards, a built-in bench and a dark planter, with a limestone wall behind.",
+      "The same courtyard after the work: a timber deck, built-in bench, planters and glass doors in dappled light.",
     ),
   },
   {
@@ -227,11 +227,11 @@ export const projects: Project[] = [
     materials: ["Clay pavers", "Limestone", "Mulch"],
     before: scene(
       "entry-before",
-      "Top-down view of the entry before the work: bare soil, a broken concrete strip and loose bricks scattered to one side.",
+      "The entry before the work: bare soil, a cracked concrete path with weeds, and loose pavers.",
     ),
     after: scene(
       "entry-after",
-      "Top-down view of the same entry after the work: a clay paver path between limestone edges and planted beds.",
+      "The same entry after the work: pale pavers to the door, planted beds and a low limestone wall.",
     ),
   },
   {

@@ -2,42 +2,30 @@
 
 Every image, texture and font used by the Bracken & Board concept, with source and licence. No photographs of people. No stock photography of real gardens. The business is fictional.
 
-The plates are original compositions made for this concept. Colour and grain come from CC0 PBR colour maps. Joints, courses, hard shadows and the set-out are drawn by `scripts/compose-plates.py`. Regenerate with the colour maps in `TEXTURE_DIR` (default `/tmp/tex/color`) and `python3 scripts/compose-plates.py`.
+The plates on the site are the lit set from `redesign/project-archive` at commit `ff160b4`. They were drawn as original SVG scenes (`scripts/generate-art.mjs`), rendered (`scripts/render-scenes.mjs`) and given directional light, leaf shade and grain by `scripts/develop-photos.py`. This round converts those WebP masters to the AVIF sizes the pages request. Dimension lines over the hero are inline SVG and are not baked into the files.
 
-`npm run art` runs that script. The older SVG pipeline (`scripts/generate-art.mjs`, `scripts/render-scenes.mjs`, `scripts/develop-photos.py`) is kept from `redesign/project-archive` and is not what the pages display.
+The earlier procedural plates, built by tiling ambientCG colour maps in `scripts/compose-plates.py`, are not what the pages display. That script remains in the repo and is not the art command.
 
 ## Plates
 
-All files are AVIF in `public/photos/`. Scene plates are 3:2 or 4:3 at 640, 1100 or 1200, and 1600 or 1800 pixels wide. Swatches are square at 480 and 960.
+Masters live on `ff160b4` as `public/photos/*.webp`. Shipped files are AVIF in `public/photos/`.
 
-| Plate | Used for | How it was made |
+| Shipped plate | Master on ff160b4 | Used for |
 | --- | --- | --- |
-| `hero-wall` | Home, right side of the first screen | Limestone courses (Rock035) and jarrah boards (WoodFloor051), hard midday shadow |
-| `plan-path` | Home, beside the section drawing | Top-down pavers (PavingStones092), gravel margin (Gravel021), limestone edge (Rock035), jarrah inset (WoodFloor051) |
-| `deck-before`, `deck-after` | Courtyard deck, before and after | Elevation. Before: brick wall (Bricks097), cracked slab (Rock035). After: limestone, jarrah, planter |
-| `entry-before`, `entry-after` | Entry path, before and after | Top-down. Before: soil and loose bricks. After: paver path, limestone edges, planted beds |
-| `garden-before`, `garden-after` | Terraced garden, before and after | Low-sun elevation. Before: fence, sleepers, bare ground. After: limestone terrace, pergola, stepping stones |
-| `swatch-limestone` | Materials wall | Rock035 recoloured and coursed |
-| `swatch-jarrah` | Materials wall | WoodFloor051 recoloured into boards |
-| `swatch-gravel` | Materials wall | Gravel021 |
-| `swatch-brick` | Materials wall | PavingStones092 recoloured into clay pavers |
-| `app/icon.svg` | Favicon | Original geometric mark, square courses, no third-party art |
+| `hero-wall` | `deck-after-2000.webp` | Home, right side of the first screen |
+| `plan-path` | `entry-after-2000.webp` | Home, beside the section drawing |
+| `deck-before`, `deck-after` | `deck-before-2000.webp`, `deck-after-2000.webp` | Courtyard deck, before and after |
+| `entry-before`, `entry-after` | `entry-before-2000.webp`, `entry-after-2000.webp` | Entry path, before and after |
+| `garden-before`, `garden-after` | `garden-before-2000.webp`, `garden-after-2000.webp` | Terraced garden, before and after |
+| `swatch-limestone` | Crop of `entry-after-wall-960.webp` | Materials wall, limestone |
+| `swatch-jarrah` | Crop of `deck-after-boards-960.webp` | Materials wall, jarrah boards |
+| `swatch-gravel` | Crop of the sandy ground in `entry-before-2000.webp` | Materials wall, the ground before a new base |
+| `swatch-brick` | Crop of the pavers in `entry-after-2000.webp` | Materials wall, entry pavers |
+| `app/icon.svg` | Original geometric mark | Favicon |
 
-Survey lines over the hero are inline SVG in the page, not baked into the file.
+All of those masters are original work owned by OFF/SHIFT Studio. No stock photography, no photographs of people, no third-party images. The lighting treatment is procedural and seeded inside `develop-photos.py`.
 
-## Textures
-
-Build inputs only. They are not shipped to the browser. Each colour map is the ambientCG 1K JPG Color file, CC0 1.0.
-
-| File used by the script | ambientCG id | Source | Licence |
-| --- | --- | --- | --- |
-| `rock.jpg` | Rock035 | https://ambientcg.com/view?id=Rock035 | CC0 1.0 |
-| `wood.jpg` | WoodFloor051 | https://ambientcg.com/view?id=WoodFloor051 | CC0 1.0 |
-| `gravel.jpg` | Gravel021 | https://ambientcg.com/view?id=Gravel021 | CC0 1.0 |
-| `pave.jpg` | PavingStones092 | https://ambientcg.com/view?id=PavingStones092 | CC0 1.0 |
-| `brick.jpg` | Bricks097 | https://ambientcg.com/view?id=Bricks097 | CC0 1.0 |
-
-Download example: `https://ambientcg.com/get?file=Rock035_1K-JPG.zip` and take the `*_Color.jpg`. The script grades each map into the limestone, jarrah, gravel and clay palette, then cuts courses and shadows. Shipped plates are the derived AVIF files, each well under the page image budget. The raw 1K maps are about 1 MB and are not committed.
+Scene plates are served at 640, 800, 1200 and 1800 wide. The hero and the entry plate beside the section are served at 640, 1100 and 1600. Swatches are square at 480, 800 and 960.
 
 ## Fonts
 

@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "playwright test",
     "lhci": "lhci autorun --config=lighthouserc.json",
-    "art": "python3 scripts/compose-plates.py",
+    "art": "echo 'Shipped plates are the lit set from redesign/project-archive (ff160b4). See docs/ASSETS.md.'",
     "screens": "node scripts/screenshots.mjs",
     "cf:build": "opennextjs-cloudflare build",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"

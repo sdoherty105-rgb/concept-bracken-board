@@ -10,7 +10,7 @@ import { heroPlate, materials, projects, trades, windows } from "@/lib/content";
 
 export const metadata = {
   description:
-    "Bracken & Board lays limestone, jarrah and clay in courses. A fictional landscape builder, created as an OFF/SHIFT Studio concept.",
+    "An OFF/SHIFT concept — fictional demonstration. Bracken & Board lays limestone, jarrah and clay in courses.",
 };
 
 export default function Home() {
@@ -41,22 +41,22 @@ export default function Home() {
             priority
             className="hero__img"
           />
-          <svg className="survey" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <g fill="none" stroke="#F4F0E6" strokeWidth="3">
-              <line x1="120" y1="200" x2="120" y2="760" />
-              <line x1="108" y1="200" x2="132" y2="200" />
-              <line x1="108" y1="760" x2="132" y2="760" />
-              <line x1="160" y1="1040" x2="900" y2="1040" />
-              <line x1="160" y1="1028" x2="160" y2="1052" />
-              <line x1="900" y1="1028" x2="900" y2="1052" />
+          <svg className="survey" viewBox="0 0 2000 1333" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="#F4F0E6" strokeWidth="4">
+              <line x1="180" y1="1080" x2="1750" y2="1080" />
+              <line x1="180" y1="1056" x2="180" y2="1104" />
+              <line x1="1750" y1="1056" x2="1750" y2="1104" />
+              <line x1="220" y1="360" x2="220" y2="860" />
+              <line x1="196" y1="360" x2="244" y2="360" />
+              <line x1="196" y1="860" x2="244" y2="860" />
             </g>
-            <g fill="none" stroke="#241B14" strokeWidth="1">
-              <line x1="120" y1="200" x2="120" y2="760" />
-              <line x1="160" y1="1040" x2="900" y2="1040" />
+            <g fill="none" stroke="#241B14" strokeWidth="1.5">
+              <line x1="180" y1="1080" x2="1750" y2="1080" />
+              <line x1="220" y1="360" x2="220" y2="860" />
             </g>
           </svg>
           <figcaption className="hero__cap">
-            Limestone wall and jarrah deck, midday. Demonstration dimensions: course 420 mm, board run 2.4 m.
+            Courtyard deck, dappled light. Demonstration dimensions: board run 4.2 m, opening 2.1 m.
           </figcaption>
         </figure>
         <nav className="hero__strip" data-layout="trade-strip" aria-label="Trades">

@@ -60,8 +60,8 @@ export default function SectionDrawing() {
         <figure className="g-8-5 plate-fig">
           <Photo plate={planPlate} sizes="(min-width: 768px) 40vw, 100vw" />
           <figcaption>
-            <span className="label">Plan</span>
-            Top-down set-out. Paver field, gravel margin, limestone edge, jarrah inset. Demonstration drawing.
+            <span className="label">Entry plate</span>
+            The finished path, from the lit set. Thicknesses in the drawing are demonstration figures.
           </figcaption>
         </figure>
       </div>

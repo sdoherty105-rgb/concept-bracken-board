@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Ledger from "@/components/Ledger";
 import MobileDock from "@/components/MobileDock";
 import SiteFooter from "@/components/SiteFooter";
+import { SITE } from "@/lib/content";
 import "./globals.css";
 
 const display = localFont({
@@ -28,11 +29,13 @@ const body = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bracken & Board | Landscaping and outdoor construction",
-    template: "%s | Bracken & Board",
+    default: `Bracken & Board | ${SITE.conceptLabel}`,
+    template: `%s | Bracken & Board | ${SITE.conceptLabel}`,
   },
-  description:
-    "Bracken & Board lays decks, paving, retaining and planting in courses. A fictional landscape builder, created as an OFF/SHIFT Studio concept.",
+  description: `${SITE.conceptLabel}. Bracken & Board lays decks, paving, retaining and planting in courses. A fictional landscape builder.`,
+  other: {
+    concept: SITE.conceptLabel,
+  },
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   formatDetection: { telephone: false, email: false, address: false },
 };

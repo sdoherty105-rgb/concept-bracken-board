@@ -8,6 +8,7 @@ export const NAV = [
   { href: "/materials", label: "Materials", match: (path: string) => path.startsWith("/materials") },
   { href: "/projects", label: "Projects", match: (path: string) => path.startsWith("/projects") },
   { href: "/guarantee", label: "Guarantee", match: (path: string) => path.startsWith("/guarantee") },
+  { href: "/takeoff", label: "Takeoff", match: (path: string) => path.startsWith("/takeoff") },
 ];
 
 export default function NavLinks() {

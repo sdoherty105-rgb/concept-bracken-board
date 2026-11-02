@@ -5,7 +5,7 @@ import { guarantee } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Guarantee",
-  description: "Demonstration ten-year workmanship terms for the fictional Bracken & Board concept. Not a warranty.",
+  description: "An OFF/SHIFT concept — fictional demonstration. Ten-year workmanship terms for a fictional builder. Not a warranty.",
 };
 
 const spans = ["g-1-7", "g-8-5", "g-1-5", "g-6-7", "g-1-12"];

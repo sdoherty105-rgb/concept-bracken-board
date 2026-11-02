@@ -253,8 +253,7 @@ test("mobile menu opens onto the materials page", async ({ browser }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
-  await page.getByRole("button", { name: "Menu" }).click();
-  await page.locator(".dock__panel").getByRole("link", { name: "Materials" }).click();
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Materials" }).click();
   await expect(page).toHaveURL(/\/materials$/);
   expect(errors).toEqual([]);
   await context.close();
