@@ -5,6 +5,7 @@ export const SITE = {
   conceptLabel: "An OFF/SHIFT concept — fictional demonstration",
   email: "hello@bracken-board.example",
   phone: "(08) 5550 0100",
+  phoneHref: "tel:+61855500100",
 };
 
 export const projectTypes = [
@@ -26,19 +27,143 @@ export const budgets = [
   "Not sure yet",
 ];
 
-export type Plate = { photo: string; alt: string };
+export type Plate = {
+  photo: string;
+  alt: string;
+  width: number;
+  height: number;
+  widths: number[];
+};
 
-export type Detail = Plate & { caption: string };
+const scene = (photo: string, alt: string): Plate => ({
+  photo,
+  alt,
+  width: 1800,
+  height: 1200,
+  widths: [640, 800, 1200, 1800],
+});
+
+const wide = (photo: string, alt: string): Plate => ({
+  photo,
+  alt,
+  width: 1600,
+  height: 1200,
+  widths: [640, 1100, 1600],
+});
+
+export const swatch = (photo: string, alt: string): Plate => ({
+  photo,
+  alt,
+  width: 960,
+  height: 960,
+  widths: [480, 800, 960],
+});
+
+export const heroPlate = wide(
+  "hero-wall",
+  "Limestone block wall and jarrah deck boards in hard midday light, with a short shadow across the boards. No people.",
+);
+
+export const planPlate = wide(
+  "plan-path",
+  "Top-down plan of a clay paver field, gravel margin, limestone edge and a jarrah deck inset. No people.",
+);
+
+export type Material = {
+  id: string;
+  name: string;
+  use: string;
+  spec: string;
+  note: string;
+  plate: Plate;
+};
+
+export const materials: Material[] = [
+  {
+    id: "limestone",
+    name: "Limestone",
+    use: "Walls, edges, steps",
+    spec: "Course 200 by 200 by 100 mm",
+    note: "Pale, honed, and heavy. It holds a line in the sun and throws light back into a shaded court.",
+    plate: swatch("swatch-limestone", "Close view of limestone blocks laid in running bond, with dark joints."),
+  },
+  {
+    id: "jarrah",
+    name: "Jarrah",
+    use: "Decks, benches, pergolas",
+    spec: "Board 86 by 19 mm",
+    note: "Dense Western Australian hardwood. Fixed hidden, oiled if you want the red, or left to silver.",
+    plate: swatch("swatch-jarrah", "Close view of jarrah deck boards with the grain running the length of each board."),
+  },
+  {
+    id: "gravel",
+    name: "Crushed gravel",
+    use: "Paths, beds, drainage",
+    spec: "10 mm, compacted",
+    note: "The quiet layer. It drains, it locks, and it gives the pavers something honest to sit on.",
+    plate: swatch("swatch-gravel", "Close view of crushed gravel, small stones in warm grey and tan."),
+  },
+  {
+    id: "brick",
+    name: "Clay pavers",
+    use: "Paths, courts, entries",
+    spec: "200 by 100 by 40 mm",
+    note: "Laid in bond on a compacted base and a sand bed. The joint is the part that keeps the surface true.",
+    plate: swatch("swatch-brick", "Close view of clay pavers laid in running bond."),
+  },
+];
+
+export const trades = [
+  {
+    id: "decks",
+    n: "01",
+    title: "Decks",
+    body: "Jarrah boards on a steel frame where the timber would meet the ground. Hidden fixings. A bench only if there is a reason to sit.",
+    facts: ["Board 86 by 19 mm", "Hidden fixings", "Frame clear of soil"],
+  },
+  {
+    id: "paving",
+    n: "02",
+    title: "Paving",
+    body: "Clay or limestone on a base we compact and check. The surface is the last course, not the first decision.",
+    facts: ["Base 100 to 150 mm", "Sand bed 30 mm", "Falls to a drain"],
+  },
+  {
+    id: "retaining",
+    n: "03",
+    title: "Retaining",
+    body: "Limestone courses, drained at the back, stepped to the fall of the block. A wall that holds a level.",
+    facts: ["Ag drain at the heel", "No fines against the face", "Capping that sheds"],
+  },
+  {
+    id: "planting",
+    n: "04",
+    title: "Planting",
+    body: "Banksia, lomandra and kangaroo paw. Mulch, a hose point, and water only where a plant earns it.",
+    facts: ["Local species", "Mulch 75 mm", "One hose point"],
+  },
+];
+
+export const layers = [
+  { id: "base", name: "Compacted base", mm: "150 mm", detail: "Limestone rubble, compacted in two passes." },
+  { id: "sand", name: "Sand bed", mm: "30 mm", detail: "Washed sand, screeded to the falls." },
+  { id: "paver", name: "Clay pavers", mm: "40 mm", detail: "200 by 100 mm, bond laid, joints filled." },
+  { id: "edge", name: "Edge restraint", mm: "100 mm", detail: "Limestone edge, haunched so the field cannot creep." },
+];
+
+export const windows = ["Monday to Thursday, 7:30 to 11:00", "Friday, 7:30 to 9:30"];
 
 export type Project = {
   id: string;
   no: string;
   title: string;
+  year: string;
+  area: string;
+  crew: string;
   site: string;
   completed: string;
   duration: string;
   kind: string;
-  /** Which project type the quote form starts on when you begin a project like this one. */
   quoteType: string;
   brief: string;
   notes: string;
@@ -46,7 +171,6 @@ export type Project = {
   materials: string[];
   before: Plate;
   after: Plate;
-  details: Detail[];
 };
 
 export const projects: Project[] = [
@@ -54,105 +178,122 @@ export const projects: Project[] = [
     id: "courtyard-deck",
     no: "001",
     title: "The courtyard deck",
+    year: "2025",
+    area: "38 m²",
+    crew: "4",
     site: "Wattlebrook",
     completed: "March 2025",
     duration: "Five weeks",
     kind: "Decking and planting",
     quoteType: "Deck or screening",
-    brief:
-      "A cracked concrete slab and patchy lawn sat between the kitchen and the back wall. Nobody used it, so we gave it a reason to be used.",
-    notes:
-      "The deck runs at the same level as the kitchen floor, so the sliding doors open straight onto it. The bench hides storage for cushions, and the planter box screens the neighbour's window without blocking the morning light.",
+    brief: "A cracked slab and a clothesline sat between the kitchen and the back wall. The deck is now level with the kitchen floor.",
+    notes: "The bench holds the cushions. The planter screens the neighbour window and keeps the morning light. Boards are jarrah, hidden-fixed, running away from the house.",
     scope: [
-      "Break out and remove the old slab",
-      "Frame and lay a spotted gum deck with hidden fixings",
-      "Built-in bench with storage beneath",
-      "Planter box with low-water natives and grasses",
+      "Break out the slab and cart it off",
+      "Steel frame, clear of the soil",
+      "Jarrah deck with hidden fixings",
+      "Bench and a planter of lomandra",
     ],
-    materials: ["Spotted gum", "Powder-coated steel", "Native grasses"],
-    before: {
-      photo: "deck-before",
-      alt: "The courtyard before the work: a cracked concrete slab with weeds in the gaps, patchy dry lawn, a rotary clothesline and a bin against the house wall.",
-    },
-    after: {
-      photo: "deck-after",
-      alt: "The same courtyard after the work: a timber deck in dappled shade, a built-in bench with cushions below the sliding doors, a dark planter box with shrubs and grasses, and potted plants.",
-    },
-    details: [
-      { photo: "deck-after-bench", caption: "The bench, with cushion storage beneath the seat", alt: "Close view of the timber bench with sage cushions in front of the glass doors." },
-      { photo: "deck-after-boards", caption: "Hidden-fix spotted gum boards in afternoon shade", alt: "Close view of the timber deck boards with leaf shadows falling across them." },
-    ],
+    materials: ["Jarrah", "Steel frame", "Lomandra"],
+    before: scene(
+      "deck-before",
+      "The courtyard before the work: a cracked concrete slab, weeds in the joints, a bin and a clothesline against a plain wall.",
+    ),
+    after: scene(
+      "deck-after",
+      "The same courtyard after the work: jarrah deck boards, a built-in bench and a dark planter, with a limestone wall behind.",
+    ),
   },
   {
     id: "entry-path",
     no: "002",
     title: "The entry path",
+    year: "2025",
+    area: "46 m²",
+    crew: "3",
     site: "Coralvale",
     completed: "August 2025",
     duration: "Three weeks",
     kind: "Paving and garden beds",
     quoteType: "Paving or entry",
-    brief:
-      "The approach to the front door was bare soil, loose bricks and a broken path. The entry is the first thing anyone sees, so it deserved better.",
-    notes:
-      "Large pavers mean fewer joints and a calmer line to the door. The beds are planted low at the path edge and taller towards the walls, so the house stays visible from the street while the path feels enclosed.",
+    brief: "Bare soil, loose bricks and a broken strip of concrete. The door needed a straight approach.",
+    notes: "Large pavers, fewer joints, a low limestone edge either side. The beds stay low at the path and rise toward the walls.",
     scope: [
-      "Excavate and compact a new engineered base",
-      "Lay large-format stone pavers with a raised entry step",
-      "Plant mulched beds either side with layered grasses and shrubs",
-      "Low limestone garden wall and path lighting",
+      "Excavate and compact a new base",
+      "Lay the paver field in bond",
+      "Limestone edge, three courses",
+      "Mulched beds with grasses",
     ],
-    materials: ["Limestone-toned pavers", "Limestone walling", "Dark mulch"],
-    before: {
-      photo: "entry-before",
-      alt: "The front entry before the work: bare sandy soil, a cracked concrete path with weeds, a pile of loose bricks and a few scattered pavers.",
-    },
-    after: {
-      photo: "entry-after",
-      alt: "The same entry after the work: a path of large pale pavers leading to the front door, mulched beds with grasses and shrubs, small path lights and a low limestone wall.",
-    },
-    details: [
-      { photo: "entry-after-lights", caption: "Path lights set into the bed edge, not the paving", alt: "Close view of the pale pavers with a small black path light at the edge of the planted bed." },
-      { photo: "entry-after-wall", caption: "Dry-laid limestone wall, three courses high", alt: "Close view of the low limestone block wall with rounded shrubs planted behind it." },
-    ],
+    materials: ["Clay pavers", "Limestone", "Mulch"],
+    before: scene(
+      "entry-before",
+      "Top-down view of the entry before the work: bare soil, a broken concrete strip and loose bricks scattered to one side.",
+    ),
+    after: scene(
+      "entry-after",
+      "Top-down view of the same entry after the work: a clay paver path between limestone edges and planted beds.",
+    ),
   },
   {
     id: "terraced-garden",
     no: "003",
     title: "The terraced garden",
+    year: "2026",
+    area: "92 m²",
+    crew: "5",
     site: "Marri Heights",
     completed: "February 2026",
     duration: "Seven weeks",
     kind: "Retaining, planting and pergola",
     quoteType: "Retaining walls or terraces",
-    brief:
-      "A bare, weedy yard with a pile of old sleepers against the fence. We organised it into levels with a place to sit and a path to follow.",
-    notes:
-      "The terrace takes up the fall of the block, so the lawn below is level enough to use. The stepping stones lead the eye to the pergola, which sits in the one corner that gets shade all afternoon.",
+    brief: "A slope, a stack of old sleepers and a drum. We cut a level, kept the fall in the wall, and put the shade where the afternoon lands.",
+    notes: "The terrace takes the fall so the lawn below is flat enough to use. Stepping stones sit flush for the mower. The pergola is three posts and a beam.",
     scope: [
-      "Build a raised limestone terrace along the fence line",
-      "Plant the beds with a feature tree and layered grasses",
-      "Lay stepping stones through new lawn",
-      "Timber pergola with built-in seating in the corner",
+      "Limestone terrace, drained at the heel",
+      "Lawn and flush stepping stones",
+      "Jarrah pergola on the shaded corner",
+      "Banksia and lomandra on the top course",
     ],
-    materials: ["Limestone", "Spotted gum pergola", "Turf and natives"],
-    before: {
-      photo: "garden-before",
-      alt: "The backyard before the work: bare dry ground with scattered weeds, a stack of old timber sleepers, a rusty drum and a plain fence.",
-    },
-    after: {
-      photo: "garden-after",
-      alt: "The same backyard after the work: a limestone terrace wall along the fence with planted beds and a small tree, stepping stones across green lawn in dappled shade, and a timber pergola with a bench.",
-    },
-    details: [
-      { photo: "garden-after-pergola", caption: "The pergola corner, in shade from two o'clock", alt: "Close view of the timber pergola posts and a small bench, with grasses on the terrace behind." },
-      { photo: "garden-after-stones", caption: "Stepping stones set flush with the lawn for the mower", alt: "Close view of pale stepping stones across the lawn, leading up to the terrace wall." },
-    ],
+    materials: ["Limestone", "Jarrah", "Turf"],
+    before: scene(
+      "garden-before",
+      "The yard before the work: a bare slope, a timber fence, a stack of old sleepers and a drum, in low sun.",
+    ),
+    after: scene(
+      "garden-after",
+      "The same yard after the work: a limestone terrace, lawn with stepping stones, and a jarrah pergola casting a long hard shadow.",
+    ),
   },
 ];
 
-export const practice = {
-  lede: "Bracken & Board is a small team of designers and builders in Perth. We draw a garden, a deck or a path, then build it ourselves, so the drawing and the finished work match.",
-  work: "Decks and screening, paving and entries, retaining walls and terraces, planting and reticulation, pergolas and outdoor rooms.",
-  how: "Every project starts with a site visit and a plain conversation about budget. You get a scaled plan, a materials board and an itemised quote before anything is dug. One site lead runs the build from the first day to the handover.",
-};
+export function projectBySlug(slug: string) {
+  return projects.find((p) => p.id === slug);
+}
+
+export const guarantee = [
+  {
+    title: "Workmanship",
+    term: "Ten years",
+    body: "Set-out, levels and fixings. If a course moves because we laid it wrong, we relay it.",
+  },
+  {
+    title: "Paving and walls",
+    term: "Ten years",
+    body: "Settlement past 10 mm on a level we set is ours to correct. Ground changed later by someone else is not.",
+  },
+  {
+    title: "Timber",
+    term: "Five years",
+    body: "The fixing, not the oil. Sun will silver jarrah. Silver is not a defect.",
+  },
+  {
+    title: "Planting",
+    term: "One season",
+    body: "We replace a plant that dies in the first growing season if it was watered. An unwatered plant is not our failure.",
+  },
+  {
+    title: "Not covered",
+    term: "Excluded",
+    body: "Vehicles on a path, later work by others, and movement we wrote down at the site visit.",
+  },
+];

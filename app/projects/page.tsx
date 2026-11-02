@@ -1,40 +1,49 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
-import StartDrawer from "@/components/StartDrawer";
-import StartLink from "@/components/StartLink";
+import ProjectPlate from "@/components/ProjectPlate";
 import { projects } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Index of projects",
-  description: "Every project in the Bracken & Board archive, as a list. A fictional landscape builder; the projects are illustrated, not real.",
+  title: "Projects",
+  description: "Three fictional outdoor projects: a courtyard deck, an entry path and a terraced garden.",
 };
 
-export default function ProjectIndex() {
+export default function ProjectsPage() {
+  const spans = [
+    { fig: "g-1-8", plate: "g-9-4" },
+    { fig: "g-5-8", plate: "g-1-4" },
+    { fig: "g-1-6", plate: "g-7-6" },
+  ];
   return (
     <>
-      <div className="archive-title">
-        <h1>Index of projects</h1>
-        <p>Listed newest first. Select a project to see it in the archive.</p>
-      </div>
-      <ol className="ledger">
-        {[...projects].reverse().map((p) => (
-          <li key={p.id} className="ledger__row">
-            <Link prefetch={false} href={`/#${p.id}`} className="ledger__link">
-              <Photo photo={p.after.photo} alt="" sizes="(min-width: 700px) 220px, 40vw" className="ledger__thumb" />
-              <span className="ledger__no">{p.no}</span>
-              <span className="ledger__title">{p.title}</span>
-              <span className="ledger__cell">{p.site}</span>
-              <span className="ledger__cell">{p.completed}</span>
-              <span className="ledger__cell ledger__kind">{p.kind}</span>
+      <link rel="preload" as="image" href={`/photos/${projects[0].after.photo}-800.avif`} fetchPriority="high" />
+      <header className="title-course">
+        <p className="label">Projects</p>
+        <h1>Work on the ground.</h1>
+        <ConceptPlate />
+      </header>
+      <section className="course" aria-labelledby="index-title" data-layout="project-index">
+        <div className="course__intro">
+          <h2 id="index-title">Three records.</h2>
+          <p>Each plate is a fictional project record: year, area, crew and materials. None of this work was built for a client.</p>
+        </div>
+        {projects.map((p, i) => (
+          <article key={p.id} className="wall project-row" aria-labelledby={`${p.id}-title`}>
+            <Link href={`/projects/${p.id}`} prefetch={false} className={`plate-fig ${spans[i].fig}`}>
+              <Photo plate={p.after} sizes="(min-width: 768px) 60vw, 100vw" priority={i === 0} />
+              <span className="visually-hidden">Open {p.title}</span>
             </Link>
-          </li>
+            <div className={spans[i].plate}>
+              <h3 id={`${p.id}-title`} className="visually-hidden">
+                {p.title}
+              </h3>
+              <ProjectPlate project={p} />
+            </div>
+          </article>
         ))}
-      </ol>
-      <p className="ledger__start">
-        Not in the archive yet? <StartLink className="underline-link">Start a project</StartLink>
-      </p>
-      <StartDrawer />
+      </section>
     </>
   );
 }

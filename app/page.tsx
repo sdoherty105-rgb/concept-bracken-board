@@ -1,98 +1,231 @@
+import Link from "next/link";
+import BondBoard from "@/components/BondBoard";
 import CompareSlider from "@/components/CompareSlider";
+import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
-import PlateRail from "@/components/PlateRail";
-import StartDrawer from "@/components/StartDrawer";
-import StartLink from "@/components/StartLink";
-import { projects } from "@/lib/content";
+import ProjectPlate from "@/components/ProjectPlate";
+import QuoteForm from "@/components/QuoteForm";
+import SectionDrawing from "@/components/SectionDrawing";
+import { heroPlate, materials, projects, trades, windows } from "@/lib/content";
 
-export default function Archive() {
+export const metadata = {
+  description:
+    "Bracken & Board lays limestone, jarrah and clay in courses. A fictional landscape builder, created as an OFF/SHIFT Studio concept.",
+};
+
+export default function Home() {
+  const featured = projects[0];
+
   return (
     <>
-      <div className="archive-title">
-        <h1>
-          A working archive of gardens, decks and paving, <span>designed and built in Perth.</span>
-        </h1>
-        <p>
-          {projects.length} projects, {projects[0].completed.split(" ")[1]} to {projects[projects.length - 1].completed.split(" ")[1]}
-        </p>
-      </div>
-
-      <PlateRail />
-
-      {projects.map((p, i) => (
-        <article key={p.id} id={p.id} className={`project project--${i % 2 ? "right" : "left"}`} aria-labelledby={`${p.id}-title`}>
-          <figure className="lead">
-            <Photo photo={p.after.photo} alt={p.after.alt} sizes="100vw" priority={i === 0} className="lead__img" />
-            <figcaption className="lead__caption">
-              <span>{p.no}</span>
-              <span>{p.title}</span>
-              <span>
-                {p.site}, {p.completed}
-              </span>
-            </figcaption>
-          </figure>
-
-          <div className="sheet">
-            <header className="sheet__head">
-              <p className="sheet__no" aria-hidden="true">
-                {p.no}
-              </p>
-              <h2 id={`${p.id}-title`}>{p.title}</h2>
-              <p className="sheet__brief">{p.brief}</p>
-            </header>
-
-            <dl className="sheet__facts">
-              <div>
-                <dt>Site</dt>
-                <dd>{p.site}</dd>
-              </div>
-              <div>
-                <dt>Completed</dt>
-                <dd>{p.completed}</dd>
-              </div>
-              <div>
-                <dt>Build</dt>
-                <dd>{p.duration}</dd>
-              </div>
-              <div>
-                <dt>Work</dt>
-                <dd>{p.kind}</dd>
-              </div>
-            </dl>
-
-            <div className="sheet__compare">
-              <CompareSlider before={p.before} after={p.after} title={p.title} sizes="(min-width: 1000px) 60vw, 100vw" />
-            </div>
-
-            <div className="sheet__notes">
-              <p>{p.notes}</p>
-              <h3>What we did</h3>
-              <ul>
-                {p.scope.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
-              <h3>Materials</h3>
-              <p>{p.materials.join(", ")}</p>
-            </div>
-
-            {p.details.map((d, j) => (
-              <figure key={d.photo} className={`detail detail--${j + 1}`}>
-                <Photo photo={d.photo} alt={d.alt} detail sizes="(min-width: 1000px) 25vw, 50vw" />
-                <figcaption>{d.caption}</figcaption>
-              </figure>
-            ))}
-
-            <p className="sheet__start">
-              <StartLink type={p.quoteType} className="start-link">
-                Start a project like this
-              </StartLink>
-            </p>
+      <section className="hero" data-layout="split-hero" aria-labelledby="hero-title">
+        <div className="hero__copy">
+          <p className="label hero__where">Landscaping, Perth</p>
+          <h1 id="hero-title">
+            Built
+            <br />
+            to
+            <br />
+            last
+            <br />
+            outside.
+          </h1>
+          <div className="hero__rule">
+            <ConceptPlate />
           </div>
-        </article>
-      ))}
+        </div>
+        <figure className="hero__photo">
+          <Photo
+            plate={heroPlate}
+            sizes="(min-width: 768px) 58vw, 100vw"
+            priority
+            className="hero__img"
+          />
+          <svg className="survey" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="#F4F0E6" strokeWidth="3">
+              <line x1="120" y1="200" x2="120" y2="760" />
+              <line x1="108" y1="200" x2="132" y2="200" />
+              <line x1="108" y1="760" x2="132" y2="760" />
+              <line x1="160" y1="1040" x2="900" y2="1040" />
+              <line x1="160" y1="1028" x2="160" y2="1052" />
+              <line x1="900" y1="1028" x2="900" y2="1052" />
+            </g>
+            <g fill="none" stroke="#241B14" strokeWidth="1">
+              <line x1="120" y1="200" x2="120" y2="760" />
+              <line x1="160" y1="1040" x2="900" y2="1040" />
+            </g>
+          </svg>
+          <figcaption className="hero__cap">
+            Limestone wall and jarrah deck, midday. Demonstration dimensions: course 420 mm, board run 2.4 m.
+          </figcaption>
+        </figure>
+        <nav className="hero__strip" data-layout="trade-strip" aria-label="Trades">
+          {trades.map((t) => (
+            <a key={t.id} href={`#${t.id}`}>
+              <span className="label">{t.n}</span>
+              {t.title}
+            </a>
+          ))}
+        </nav>
+      </section>
 
-      <StartDrawer />
+      <link rel="preload" as="image" href="/photos/hero-wall-1100.avif" fetchPriority="high" />
+
+      <SectionDrawing />
+
+      <section className="course" id="trades" data-layout="running-bond" aria-labelledby="trades-title">
+        <div className="course__intro">
+          <p className="label">The trades</p>
+          <h2 id="trades-title">Laid in courses.</h2>
+          <p>Four kinds of work. Each one is a different block, because the jobs are not the same size.</p>
+        </div>
+        <div className="wall">
+          <article id="decks" className="g-1-5 block-pad">
+            <p className="label">{trades[0].n}</p>
+            <h3>{trades[0].title}</h3>
+            <p>{trades[0].body}</p>
+          </article>
+          <ul className="g-6-7 block-pad fact-list">
+            {trades[0].facts.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+          <p className="g-1-2 block-pad block--moss">
+            <span className="label">Bond</span>
+            Half a block over.
+          </p>
+          <article id="paving" className="g-3-5 block-pad">
+            <p className="label">{trades[1].n}</p>
+            <h3>{trades[1].title}</h3>
+            <p>{trades[1].body}</p>
+          </article>
+          <ul className="g-8-5 block-pad fact-list">
+            {trades[1].facts.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+          <article id="retaining" className="g-1-8 block-pad block--raised">
+            <p className="label">{trades[2].n}</p>
+            <h3>{trades[2].title}</h3>
+            <p>{trades[2].body}</p>
+            <ul className="fact-list fact-list--row">
+              {trades[2].facts.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+          </article>
+          <p className="g-9-4 block-pad block--jarrah">
+            <span className="label">Levels</span>
+            A wall is only as good as the drain behind it.
+          </p>
+          <article id="planting" className="g-1-6 block-pad">
+            <p className="label">{trades[3].n}</p>
+            <h3>{trades[3].title}</h3>
+            <p>{trades[3].body}</p>
+          </article>
+          <ul className="g-7-6 block-pad fact-list">
+            {trades[3].facts.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="course" id="materials" data-layout="materials-wall" aria-labelledby="materials-title">
+        <div className="course__intro">
+          <p className="label">Materials</p>
+          <h2 id="materials-title">The specimen wall.</h2>
+          <p>A short course here. The full wall, with demonstration specifications, is on the materials page.</p>
+        </div>
+        <div className="wall">
+          <Link href="/materials#limestone" prefetch={false} className="specimen g-1-5">
+            <Photo plate={materials[0].plate} sizes="(min-width: 768px) 40vw, 100vw" alt="" />
+            <span className="specimen__name">{materials[0].name}</span>
+          </Link>
+          <Link href="/materials#jarrah" prefetch={false} className="specimen specimen--mid g-6-3">
+            <Photo plate={materials[1].plate} sizes="(min-width: 768px) 24vw, 100vw" alt="" />
+            <span className="specimen__name">{materials[1].name}</span>
+          </Link>
+          <Link href="/materials#gravel" prefetch={false} className="specimen specimen--short g-9-4">
+            <Photo plate={materials[2].plate} sizes="(min-width: 768px) 30vw, 100vw" alt="" />
+            <span className="specimen__name">{materials[2].name}</span>
+          </Link>
+          <Link href="/materials#brick" prefetch={false} className="specimen g-1-7">
+            <Photo plate={materials[3].plate} sizes="(min-width: 768px) 50vw, 100vw" alt="" />
+            <span className="specimen__name">{materials[3].name}</span>
+          </Link>
+          <div className="g-8-5 block-pad">
+            <p className="label">Full wall</p>
+            <p>Sizes and notes for each material sit on the specimen wall.</p>
+            <Link href="/materials" prefetch={false} className="text-link">
+              Open materials
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="course" id={featured.id} data-layout="project-case" aria-labelledby="case-title">
+        <div className="course__intro">
+          <p className="label">One project</p>
+          <h2 id="case-title">{featured.title}</h2>
+          <p>{featured.brief}</p>
+        </div>
+        <div className="wall">
+          <div className="g-1-8">
+            <CompareSlider
+              before={featured.before}
+              after={featured.after}
+              title={featured.title}
+              sizes="(min-width: 768px) 66vw, 100vw"
+            />
+          </div>
+          <div className="g-9-4">
+            <ProjectPlate project={featured} />
+          </div>
+          <div className="g-1-12 block-pad case-foot">
+            <p>{featured.notes}</p>
+            <Link href={`/projects/${featured.id}`} prefetch={false} className="text-link">
+              Open the project record
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="guarantee-slab" data-layout="guarantee-slab" aria-labelledby="guarantee-title">
+        <p className="label">Demonstration terms</p>
+        <h2 id="guarantee-title">
+          Ten
+          <br />
+          years.
+        </h2>
+        <p>On the workmanship. These are invented terms for a fictional business. Not a warranty.</p>
+        <Link href="/guarantee" prefetch={false} className="slab-link">
+          Read the terms
+        </Link>
+      </section>
+
+      <section className="course" id="visit" data-layout="bond-board" aria-labelledby="visit-title">
+        <div className="course__intro">
+          <p className="label">Site visit</p>
+          <h2 id="visit-title">Tell us the ground.</h2>
+          <p>The takeoff sits beside the request. Both are demonstrations. Nothing is booked and nothing is sent.</p>
+        </div>
+        <div className="wall">
+          <div className="g-1-7 block-pad">
+            <BondBoard initialArea={24} initialDepth={100} />
+          </div>
+          <div className="g-8-5 block-pad visit-form">
+            <p className="label">Book a site visit</p>
+            <ul className="windows">
+              {windows.map((w) => (
+                <li key={w}>{w}</li>
+              ))}
+            </ul>
+            <p className="demo-note">Demonstration visit windows. Nothing is held and nothing is booked.</p>
+            <QuoteForm fromQuery />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -13,14 +13,7 @@ type Props = {
   title: string;
 };
 
-export default function CompareSlider({
-  before,
-  after,
-  beforeLabel = "Before",
-  afterLabel = "After",
-  title,
-  sizes,
-}: Props) {
+export default function CompareSlider({ before, after, beforeLabel = "Before", afterLabel = "After", title, sizes }: Props) {
   const [value, setValue] = useState(50);
   const hintId = useId();
 
@@ -28,13 +21,13 @@ export default function CompareSlider({
     <div className="compare" data-testid="compare">
       <div className="compare__stage" style={{ "--v": value / 100 } as CSSProperties}>
         <figure className="compare__pane compare__pane--before">
-          <Photo photo={before.photo} alt={before.alt} sizes={sizes} className="compare__img" />
+          <Photo plate={before} sizes={sizes} className="compare__img" />
           <figcaption>
             <span className="compare__tag">{beforeLabel}</span>
           </figcaption>
         </figure>
         <figure className="compare__pane compare__pane--after">
-          <Photo photo={after.photo} alt={after.alt} sizes={sizes} className="compare__img" />
+          <Photo plate={after} sizes={sizes} className="compare__img" />
           <figcaption>
             <span className="compare__tag">{afterLabel}</span>
           </figcaption>

@@ -5,7 +5,13 @@ const base = process.argv[2] ?? "http://localhost:3100";
 const executablePath = process.env.PW_CHROME_PATH || undefined;
 const shots = [
   { name: "home", path: "/" },
+  { name: "materials", path: "/materials" },
   { name: "projects", path: "/projects" },
+  { name: "project-deck", path: "/projects/courtyard-deck" },
+  { name: "project-entry", path: "/projects/entry-path" },
+  { name: "project-garden", path: "/projects/terraced-garden" },
+  { name: "guarantee", path: "/guarantee" },
+  { name: "not-found", path: "/does-not-exist" },
 ];
 const widths = [
   { w: 390, h: 844 },
