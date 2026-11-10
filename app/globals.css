@@ -823,16 +823,73 @@ main {
 }
 
 .windows {
-  list-style: none;
-  margin: 0 0 12px;
+  border: 0;
+  margin: 0 0 16px;
   padding: 0;
+  min-width: 0;
 }
 
-.windows li {
-  border-top: 3px solid var(--ink);
-  padding: 8px 0;
+.windows legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.window-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 12px;
+  border: 3px solid var(--ink);
+  background: var(--limewash);
   font-family: var(--font-display), Arial, sans-serif;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.window-opt + .window-opt {
+  border-top: 0;
+}
+
+.window-opt input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--jarrah);
+}
+
+.window-opt:has(input:checked) {
+  background: var(--jarrah);
+  color: var(--limewash);
+}
+
+.window-opt:has(input:focus-visible) {
+  outline: 3px solid var(--jarrah);
+  outline-offset: 2px;
+}
+
+.window-opt input:focus-visible {
+  outline-color: var(--limewash);
+}
+
+.windows[aria-invalid="true"] .window-opt {
+  border-color: var(--jarrah);
+}
+
+.form__step {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 3px solid var(--ink);
+}
+
+.visit-form h3 {
+  margin-bottom: 12px;
+}
+
+.form__submit:disabled {
+  background: var(--ink);
+  cursor: progress;
 }
 
 .bond-form__fields,
@@ -1087,6 +1144,77 @@ main {
   color: var(--limewash);
 }
 
+/* Fact lists that are their own block keep the block padding. */
+.fact-list.block-pad {
+  margin: 0;
+  padding: 20px 22px 24px;
+}
+
+.foot__pad {
+  padding: 20px 22px 24px;
+}
+
+.foot__cta {
+  font-family: var(--font-display), Arial, sans-serif;
+  font-weight: 800;
+}
+
+/* The concept plate: disclosure, the way back to OFF/SHIFT, and the studio enquiry. */
+.concept-plate {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.concept-plate p {
+  margin: 0;
+}
+
+.concept-plate__label {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.concept-plate__note {
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 46rem;
+}
+
+.concept-plate a.concept-plate__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 4px;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--limewash);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.concept-plate a.concept-plate__cta:hover {
+  text-decoration: underline;
+}
+
+.hero__copy .concept-plate :focus-visible,
+.concept-plate :focus-visible {
+  outline-color: var(--ink);
+}
+
+.concept-plate a.concept-plate__cta:focus-visible {
+  outline: 3px solid var(--jarrah);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  /* The request sits on the right, the takeoff on the left; the request comes first in the reading order. */
+  .visit-wall > * {
+    grid-row: 1;
+  }
+}
+
 @media (scripting: enabled) {
   .compare__stage {
     position: relative;
@@ -1229,12 +1357,13 @@ main {
     min-height: 0;
   }
 
-  .hero__photo {
-    aspect-ratio: 16 / 9;
+  .hero__copy {
     order: 0;
+    padding-bottom: 0;
   }
 
-  .hero__copy {
+  .hero__photo {
+    aspect-ratio: 16 / 9;
     order: 1;
   }
 
@@ -1361,7 +1490,7 @@ main {
   }
 
   body {
-    padding-bottom: 62px;
+    padding-bottom: 64px;
   }
 }
 

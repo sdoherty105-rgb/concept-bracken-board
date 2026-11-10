@@ -8,11 +8,12 @@ Concept page: <https://offshiftstudio.com.au/concepts/bracken-board>
 
 ## Pages
 
-- `/` Split hero, section drawing, four trades in running bond, a materials course, one project with the compare slider, the guarantee in large type, and a takeoff beside the site-visit request
+- `/` Split hero, four trades in running bond, one project with the compare slider, the section drawing, a materials course, the guarantee in large type, and a two-step site-visit request beside the takeoff
 - `/materials` Specimen wall
 - `/projects` Project index, each with an engraved plate
 - `/projects/[slug]` Project record and before/after plate
 - `/guarantee` Demonstration ten-year workmanship terms
+- `/takeoff` Materials takeoff (works without JavaScript)
 - 404
 
 ## What is different about this version
@@ -45,9 +46,14 @@ npm run cf:build
 
 ## Safeguards
 
-- Concept label on every page, in the first viewport, linking to the OFF/SHIFT concept page.
+- A concept plate on every page, in the first viewport: the label linking back to the OFF/SHIFT concept page, a one-line fictional-business disclosure, and "Want a website like this?" linking to `https://offshiftstudio.com.au/?concept=bracken-board#contact`. The footer repeats all three.
 - `noindex, nofollow` via meta tag, `X-Robots-Tag`, and `robots.txt` (`Disallow: /`).
-- The quote form is demo only: it validates in the browser, says nothing was sent, and has no network request.
+- The site-visit form is demo only: it validates in the browser, shows a short local pending state, says nothing was sent, and makes no network request (a Playwright test fails on any fetch, XHR, navigation, beacon or socket). Only the visit-window radios carry a `name`, so even a no-JavaScript submit carries no personal data.
 - Lighthouse CI skips `is-crawlable` because of the deliberate noindex.
 
-This repository is not deployed from this branch. Do not run `wrangler deploy`.
+## Deployment
+
+- Live URL: <https://bracken-board.offshiftstudio.com.au> (Cloudflare Workers, worker `concept-bracken-board`).
+- As checked on 10 November 2026, the live URL serves `main` at `7895e87` (the landscape-journal version, "Built for life outside."). It does **not** serve this redesign yet.
+- Nothing in this repository deploys: CI (`.github/workflows/ci.yml`) only lints, builds, tests, bundles with OpenNext and runs Lighthouse. Production appears to follow `main` through a Cloudflare Git integration configured outside the repo (not verifiable from here). Pushes to `redesign/2026-11` since 26 October have not changed the live site, which is consistent with only `main` being the production branch.
+- Deploying this version means merging PR #3 to `main` (owner decision). Do not run `wrangler deploy` from a branch.

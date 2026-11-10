@@ -4,9 +4,9 @@ import CompareSlider from "@/components/CompareSlider";
 import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
 import ProjectPlate from "@/components/ProjectPlate";
-import QuoteForm from "@/components/QuoteForm";
+import SiteVisitForm from "@/components/SiteVisitForm";
 import SectionDrawing from "@/components/SectionDrawing";
-import { heroPlate, materials, projects, trades, windows } from "@/lib/content";
+import { heroPlate, materials, projects, trades } from "@/lib/content";
 
 export const metadata = {
   description:
@@ -71,8 +71,6 @@ export default function Home() {
 
       <link rel="preload" as="image" href="/photos/hero-wall-1100.avif" fetchPriority="high" />
 
-      <SectionDrawing />
-
       <section className="course" id="trades" data-layout="running-bond" aria-labelledby="trades-title">
         <div className="course__intro">
           <p className="label">The trades</p>
@@ -131,6 +129,35 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="course" id={featured.id} data-layout="project-case" aria-labelledby="case-title">
+        <div className="course__intro">
+          <p className="label">One project</p>
+          <h2 id="case-title">{featured.title}</h2>
+          <p>{featured.brief}</p>
+        </div>
+        <div className="wall">
+          <div className="g-1-8">
+            <CompareSlider
+              before={featured.before}
+              after={featured.after}
+              title={featured.title}
+              sizes="(min-width: 768px) 66vw, 100vw"
+            />
+          </div>
+          <div className="g-9-4">
+            <ProjectPlate project={featured} />
+          </div>
+          <div className="g-1-12 block-pad case-foot">
+            <p>{featured.notes}</p>
+            <Link href={`/projects/${featured.id}`} prefetch={false} className="text-link">
+              Open the project record
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <SectionDrawing />
+
       <section className="course" id="materials" data-layout="materials-wall" aria-labelledby="materials-title">
         <div className="course__intro">
           <p className="label">Materials</p>
@@ -164,33 +191,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="course" id={featured.id} data-layout="project-case" aria-labelledby="case-title">
-        <div className="course__intro">
-          <p className="label">One project</p>
-          <h2 id="case-title">{featured.title}</h2>
-          <p>{featured.brief}</p>
-        </div>
-        <div className="wall">
-          <div className="g-1-8">
-            <CompareSlider
-              before={featured.before}
-              after={featured.after}
-              title={featured.title}
-              sizes="(min-width: 768px) 66vw, 100vw"
-            />
-          </div>
-          <div className="g-9-4">
-            <ProjectPlate project={featured} />
-          </div>
-          <div className="g-1-12 block-pad case-foot">
-            <p>{featured.notes}</p>
-            <Link href={`/projects/${featured.id}`} prefetch={false} className="text-link">
-              Open the project record
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <section className="guarantee-slab" data-layout="guarantee-slab" aria-labelledby="guarantee-title">
         <p className="label">Demonstration terms</p>
         <h2 id="guarantee-title">
@@ -208,21 +208,16 @@ export default function Home() {
         <div className="course__intro">
           <p className="label">Site visit</p>
           <h2 id="visit-title">Tell us the ground.</h2>
-          <p>The takeoff sits beside the request. Both are demonstrations. Nothing is booked and nothing is sent.</p>
+          <p>Pick a window, tell us where the ground is, and a builder walks it with you. The takeoff beside it gives a rough idea of the materials. Both are demonstrations: nothing is booked and nothing is sent.</p>
         </div>
-        <div className="wall">
+        <div className="wall visit-wall">
+          <div className="g-8-5 block-pad visit-form" id="visit-request">
+            <p className="label">Book a site visit</p>
+            <h3>Two steps. About a minute.</h3>
+            <SiteVisitForm fromQuery />
+          </div>
           <div className="g-1-7 block-pad">
             <BondBoard initialArea={24} initialDepth={100} />
-          </div>
-          <div className="g-8-5 block-pad visit-form">
-            <p className="label">Book a site visit</p>
-            <ul className="windows">
-              {windows.map((w) => (
-                <li key={w}>{w}</li>
-              ))}
-            </ul>
-            <p className="demo-note">Demonstration visit windows. Nothing is held and nothing is booked.</p>
-            <QuoteForm fromQuery />
           </div>
         </div>
       </section>

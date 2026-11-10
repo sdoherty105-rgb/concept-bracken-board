@@ -1,55 +1,66 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { budgets, projectTypes } from "@/lib/content";
+import { projectTypes, windows } from "@/lib/content";
 
 type Values = {
+  window: string;
   name: string;
-  email: string;
-  phone: string;
+  contact: string;
   suburb: string;
   projectType: string;
-  budget: string;
-  details: string;
 };
 
 type Errors = Partial<Record<keyof Values, string>>;
 
-const empty: Values = { name: "", email: "", phone: "", suburb: "", projectType: "", budget: "", details: "" };
+const empty: Values = { window: "", name: "", contact: "", suburb: "", projectType: "" };
 
-const order: (keyof Values)[] = ["name", "email", "phone", "suburb", "projectType", "budget", "details"];
+const order: (keyof Values)[] = ["window", "name", "contact", "suburb", "projectType"];
+
+/** Where each error summary link should land. A radio group lands on its first option. */
+const target = (k: keyof Values) => (k === "window" ? "v-window-0" : `v-${k}`);
+
+const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);
+const isPhone = (s: string) => /^[0-9+()\s-]+$/.test(s) && s.replace(/\D/g, "").length >= 8;
 
 function validate(v: Values): Errors {
   const e: Errors = {};
+  if (!v.window) e.window = "Choose a visit window.";
   if (!v.name.trim()) e.name = "Enter your name.";
-  if (!v.email.trim()) e.email = "Enter your email address.";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) e.email = "Enter an email address like name@example.com.";
-  if (v.phone.trim() && !/^[0-9+()\s-]{8,}$/.test(v.phone.trim())) e.phone = "Enter a phone number with at least 8 digits, or leave it blank.";
-  if (!v.projectType) e.projectType = "Choose the closest project type.";
-  if (!v.budget) e.budget = "Choose a budget range. A rough idea is fine.";
+  const c = v.contact.trim();
+  if (!c) e.contact = "Enter a phone number or an email address.";
+  else if (!isEmail(c) && !isPhone(c)) e.contact = "Enter a phone number with at least 8 digits, or an email like name@example.com.";
+  if (!v.suburb.trim()) e.suburb = "Enter the suburb, so the crew knows where the ground is.";
   return e;
 }
 
 type Props = {
-  /** The project type to start on. */
-  initialType?: string;
-  /** Read the starting project type from ?type= in the address (the /start page). */
+  /** Read the starting project type from ?type= in the address. */
   fromQuery?: boolean;
 };
 
-export default function QuoteForm({ initialType, fromQuery = false }: Props) {
-  const [values, setValues] = useState<Values>(() => ({ ...empty, projectType: projectTypes.includes(initialType ?? "") ? initialType! : "" }));
+/**
+ * Site-visit request. Demonstration only: it validates in the browser, never
+ * sends anything, and only the visit-window radios carry a name, so a no-JavaScript
+ * submit carries no personal data.
+ */
+export default function SiteVisitForm({ fromQuery = false }: Props) {
+  const [values, setValues] = useState<Values>(empty);
   const [errors, setErrors] = useState<Errors>({});
+  const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState<Values | null>(null);
   const [enhanced, setEnhanced] = useState(false);
   const successRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const timer = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     setEnhanced(true);
-    if (!fromQuery) return;
-    const type = new URLSearchParams(window.location.search).get("type");
-    if (type && projectTypes.includes(type)) setValues((prev) => ({ ...prev, projectType: type }));
+    if (fromQuery) {
+      const type = new URLSearchParams(window.location.search).get("type");
+      if (type && projectTypes.includes(type)) setValues((prev) => ({ ...prev, projectType: type }));
+    }
+    return () => window.clearTimeout(timer.current);
   }, [fromQuery]);
 
   useEffect(() => {
@@ -63,14 +74,19 @@ export default function QuoteForm({ initialType, fromQuery = false }: Props) {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (pending) return;
     const next = validate(values);
     setErrors(next);
-    const first = order.find((k) => next[k]);
-    if (first) {
+    if (order.some((k) => next[k])) {
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
-    setSubmitted(values);
+    // A short, local pause so the pending state is visible. Nothing leaves the page.
+    setPending(true);
+    timer.current = window.setTimeout(() => {
+      setPending(false);
+      setSubmitted(values);
+    }, 600);
   };
 
   const reset = () => {
@@ -83,17 +99,17 @@ export default function QuoteForm({ initialType, fromQuery = false }: Props) {
 
   if (submitted) {
     return (
-      <div className="form-success" ref={successRef} tabIndex={-1} role="status" data-testid="quote-success">
+      <div className="form-success" ref={successRef} tabIndex={-1} role="status" data-testid="visit-success">
         <p className="form-success__kicker">Demo only</p>
         <h3>Thanks, {submitted.name.trim().split(" ")[0]}. Nothing was sent.</h3>
         <p>
-          This is a fictional concept website, so your quote request was not sent, stored or shared anywhere. On a real site, this is where the
-          team would reply within a working day.
+          Bracken &amp; Board is fictional, so no visit was booked and your details were not sent, stored or shared. On a real site, the crew
+          would confirm the window within a working day.
         </p>
         <dl className="form-success__recap">
-          <div><dt>Project</dt><dd>{submitted.projectType}</dd></div>
-          <div><dt>Budget</dt><dd>{submitted.budget}</dd></div>
-          {submitted.suburb.trim() && <div><dt>Suburb</dt><dd>{submitted.suburb}</dd></div>}
+          <div><dt>Window</dt><dd>{submitted.window}</dd></div>
+          <div><dt>Suburb</dt><dd>{submitted.suburb}</dd></div>
+          {submitted.projectType && <div><dt>Job</dt><dd>{submitted.projectType}</dd></div>}
         </dl>
         <button type="button" className="text-button" onClick={reset}>
           Clear and start again
@@ -103,26 +119,34 @@ export default function QuoteForm({ initialType, fromQuery = false }: Props) {
   }
 
   const field = (k: keyof Values) => ({
-    id: `q-${k}`,
+    id: `v-${k}`,
     "aria-invalid": errors[k] ? (true as const) : undefined,
-    "aria-describedby": errors[k] ? `q-${k}-error` : undefined,
+    "aria-describedby": errors[k] ? `v-${k}-error` : undefined,
   });
 
   const err = (k: keyof Values) =>
     errors[k] ? (
-      <p className="field__error" id={`q-${k}-error`}>
+      <p className="field__error" id={`v-${k}-error`}>
         <span className="visually-hidden">Error: </span>
         {errors[k]}
       </p>
     ) : null;
 
   return (
-    <form className="form" onSubmit={onSubmit} noValidate={enhanced} action="#quote-demo-sent" data-testid="quote-form">
-      <div className="form__demo-note" role="note">
-        <strong>Demo form.</strong> Nothing you type here is sent anywhere.
-      </div>
-      <div id="quote-demo-sent" className="form__nojs-sent" role="status">
-        <strong>Demo only.</strong> Your details were checked in the browser and nothing was sent, stored or shared.
+    <form
+      className="form"
+      onSubmit={onSubmit}
+      noValidate={enhanced}
+      action="#visit-demo-sent"
+      aria-busy={pending || undefined}
+      aria-describedby="visit-demo-note"
+      data-testid="visit-form"
+    >
+      <p className="form__demo-note" id="visit-demo-note">
+        <strong>Demo form.</strong> Demonstration visit windows: nothing is held or booked, and nothing you type is sent anywhere.
+      </p>
+      <div id="visit-demo-sent" className="form__nojs-sent" role="status">
+        <strong>Demo only.</strong> Nothing was sent, stored or shared.
       </div>
 
       {errorList.length > 0 && (
@@ -131,69 +155,75 @@ export default function QuoteForm({ initialType, fromQuery = false }: Props) {
           <ul>
             {errorList.map((k) => (
               <li key={k}>
-                <a href={`#q-${k}`}>{errors[k]}</a>
+                <a href={`#${target(k)}`}>{errors[k]}</a>
               </li>
             ))}
           </ul>
         </div>
       )}
 
+      <fieldset
+        className="windows"
+        aria-invalid={errors.window ? true : undefined}
+        aria-describedby={errors.window ? "v-window-error" : undefined}
+      >
+        <legend className="label">
+          1. Pick a window <span className="field__req" aria-hidden="true">*</span>
+        </legend>
+        {windows.map((w, i) => (
+          <label key={w} className="window-opt" htmlFor={`v-window-${i}`}>
+            <input
+              type="radio"
+              id={`v-window-${i}`}
+              value={w}
+              checked={values.window === w}
+              onChange={set("window")}
+              required
+              // The one named control: it groups the radios for arrow keys. A visit window is not personal data.
+              name="visit-window"
+            />
+            <span>{w}</span>
+          </label>
+        ))}
+        {err("window")}
+      </fieldset>
+
+      <p className="label form__step">2. Where and who</p>
       <div className="field">
-        <label htmlFor="q-name">Full name <span className="field__req" aria-hidden="true">*</span></label>
+        <label htmlFor="v-name">Your name <span className="field__req" aria-hidden="true">*</span></label>
         <input type="text" autoComplete="name" required value={values.name} onChange={set("name")} {...field("name")} />
         {err("name")}
       </div>
 
       <div className="form__row">
         <div className="field">
-          <label htmlFor="q-email">Email <span className="field__req" aria-hidden="true">*</span></label>
-          <input type="email" autoComplete="email" required value={values.email} onChange={set("email")} {...field("email")} />
-          {err("email")}
+          <label htmlFor="v-contact">Phone or email <span className="field__req" aria-hidden="true">*</span></label>
+          <input type="text" inputMode="email" autoComplete="email" required value={values.contact} onChange={set("contact")} {...field("contact")} />
+          {err("contact")}
         </div>
         <div className="field">
-          <label htmlFor="q-phone">Phone <span className="field__opt">(optional)</span></label>
-          <input type="tel" autoComplete="tel" value={values.phone} onChange={set("phone")} {...field("phone")} />
-          {err("phone")}
+          <label htmlFor="v-suburb">Suburb <span className="field__req" aria-hidden="true">*</span></label>
+          <input type="text" autoComplete="address-level2" required value={values.suburb} onChange={set("suburb")} {...field("suburb")} />
+          {err("suburb")}
         </div>
       </div>
 
       <div className="field">
-        <label htmlFor="q-suburb">Suburb <span className="field__opt">(optional)</span></label>
-        <input type="text" autoComplete="address-level2" value={values.suburb} onChange={set("suburb")} {...field("suburb")} />
+        <label htmlFor="v-projectType">The job <span className="field__opt">(optional)</span></label>
+        <select value={values.projectType} onChange={set("projectType")} {...field("projectType")}>
+          <option value="">Not sure yet</option>
+          {projectTypes.filter((t) => t !== "Not sure yet").map((t) => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
       </div>
 
-      <div className="form__row">
-        <div className="field">
-          <label htmlFor="q-projectType">Project type <span className="field__req" aria-hidden="true">*</span></label>
-          <select required value={values.projectType} onChange={set("projectType")} {...field("projectType")}>
-            <option value="">Choose a project type</option>
-            {projectTypes.map((t) => (
-              <option key={t} value={t}>{t}</option>
-            ))}
-          </select>
-          {err("projectType")}
-        </div>
-        <div className="field">
-          <label htmlFor="q-budget">Budget range <span className="field__req" aria-hidden="true">*</span></label>
-          <select required value={values.budget} onChange={set("budget")} {...field("budget")}>
-            <option value="">Choose a budget range</option>
-            {budgets.map((b) => (
-              <option key={b} value={b}>{b}</option>
-            ))}
-          </select>
-          {err("budget")}
-        </div>
-      </div>
-
-      <div className="field">
-        <label htmlFor="q-details">About the space <span className="field__opt">(optional)</span></label>
-        <textarea rows={4} value={values.details} onChange={set("details")} {...field("details")} />
-      </div>
-
-      <button type="submit" className="form__submit">
-        Send demo quote request
+      <button type="submit" className="form__submit" disabled={pending}>
+        {pending ? "Holding the window…" : "Request a site visit (demo)"}
       </button>
-      <p className="form__fine">Fields marked * are required. This form is a demonstration and never sends your details.</p>
+      <p className="form__fine" aria-live="polite">
+        {pending ? "Checking your request in the browser. Nothing is sent." : "Fields marked * are required. This demo never sends your details."}
+      </p>
     </form>
   );
 }
