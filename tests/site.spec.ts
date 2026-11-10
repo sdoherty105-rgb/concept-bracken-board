@@ -340,3 +340,36 @@ test("reduced motion removes the course animation", async ({ browser }) => {
   expect(name).toBe("none");
   await context.close();
 });
+
+test("headings never break inside a word", async ({ browser }) => {
+  test.setTimeout(180_000);
+  const broken: string[] = [];
+  for (const width of [320, 390, 768, 1024, 1150, 1440]) {
+    const context = await browser.newContext({ viewport: { width, height: 900 } });
+    const page = await context.newPage();
+    for (const path of ["/", "/materials", "/projects", "/projects/terraced-garden", "/guarantee", "/takeoff", "/does-not-exist"]) {
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const found = await page.evaluate(() => {
+        const out: string[] = [];
+        for (const h of document.querySelectorAll("h1, h2, h3")) {
+          const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+          for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+            const text = n.textContent ?? "";
+            for (const m of text.matchAll(/\S+/g)) {
+              const r = document.createRange();
+              r.setStart(n, m.index!);
+              r.setEnd(n, m.index! + m[0].length);
+              const tops = new Set([...r.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top)));
+              if (tops.size > 1) out.push(m[0]);
+            }
+          }
+        }
+        return out;
+      });
+      for (const w of found) broken.push(`${width} ${path} "${w}"`);
+    }
+    await context.close();
+  }
+  expect(broken).toEqual([]);
+});
