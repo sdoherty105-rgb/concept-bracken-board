@@ -15,7 +15,6 @@ export default function MaterialsPage() {
   const limestone = materials[0];
   return (
     <>
-      <link rel="preload" as="image" href="/photos/swatch-limestone-800.avif" fetchPriority="high" />
       <header className="lead-specimen" id="limestone">
         <div className="lead-specimen__copy">
           <p className="label">Materials</p>

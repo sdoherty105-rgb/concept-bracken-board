@@ -18,7 +18,6 @@ export default function ProjectsPage() {
   ];
   return (
     <>
-      <link rel="preload" as="image" href={`/photos/${projects[0].after.photo}-800.avif`} fetchPriority="high" />
       <header className="title-course">
         <p className="label">Projects</p>
         <h1>Work on the ground.</h1>

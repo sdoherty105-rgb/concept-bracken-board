@@ -37,7 +37,7 @@ export default function Home() {
         <figure className="hero__photo">
           <Photo
             plate={heroPlate}
-            sizes="(min-width: 768px) 58vw, 100vw"
+            sizes="(min-width: 1101px) 37vw, (min-width: 768px) 43vw, calc(100vw - 80px)"
             priority
             className="hero__img"
           />
@@ -68,8 +68,6 @@ export default function Home() {
           ))}
         </nav>
       </section>
-
-      <link rel="preload" as="image" href="/photos/hero-wall-1100.avif" fetchPriority="high" />
 
       <section className="course" id="trades" data-layout="running-bond" aria-labelledby="trades-title">
         <div className="course__intro">

@@ -31,7 +31,6 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
   return (
     <article data-layout="project-record">
-      <link rel="preload" as="image" href={`/photos/${project.after.photo}-800.avif`} fetchPriority="high" />
       <header className="title-course">
         <p className="label">
           Project {project.no} / {project.site}
