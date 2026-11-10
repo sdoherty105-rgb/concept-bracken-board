@@ -20,11 +20,15 @@ export default function SiteFooter() {
         <p className="fine">These contact details are invented.</p>
       </div>
       <div className="g-10-3 block--jarrah foot__pad">
-        <p className="label">Studio</p>
+        <p className="label">OFF/SHIFT Studio</p>
+        <p className="fine">{SITE.disclosure}</p>
         <p>
-          <a href={SITE.conceptUrl} rel="noopener">
-            OFF/SHIFT Studio concept
+          <a href={SITE.studioContactUrl} className="foot__cta">
+            {SITE.studioCta}
           </a>
+        </p>
+        <p>
+          <a href={SITE.conceptUrl}>Back to the OFF/SHIFT concept page</a>
         </p>
         <p>
           <Link href="/guarantee" prefetch={false}>

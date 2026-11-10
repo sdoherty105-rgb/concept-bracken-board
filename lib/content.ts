@@ -3,6 +3,10 @@ export const SITE = {
   slug: "bracken-board",
   conceptUrl: "https://offshiftstudio.com.au/concepts/bracken-board",
   conceptLabel: "An OFF/SHIFT concept — fictional demonstration",
+  /** OFF/SHIFT enquiry form, tagged with this concept. */
+  studioContactUrl: "https://offshiftstudio.com.au/?concept=bracken-board#contact",
+  studioCta: "Want a website like this?",
+  disclosure: "Bracken & Board is not a real business. The projects, prices and contact details are invented.",
   email: "hello@bracken-board.example",
   phone: "(08) 5550 0100",
   phoneHref: "tel:+61855500100",
@@ -15,15 +19,6 @@ export const projectTypes = [
   "Garden design and planting",
   "Pergola or outdoor room",
   "Full outdoor makeover",
-  "Not sure yet",
-];
-
-export const budgets = [
-  "Under $15,000",
-  "$15,000 – $30,000",
-  "$30,000 – $60,000",
-  "$60,000 – $100,000",
-  "$100,000 or more",
   "Not sure yet",
 ];
 
