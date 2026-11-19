@@ -111,28 +111,28 @@ export const materials: Material[] = [
 export const trades = [
   {
     id: "decks",
-    n: "01",
+    kind: "Jarrah on a steel frame",
     title: "Decks",
     body: "Jarrah boards on a steel frame where the timber would meet the ground. Hidden fixings. A bench only if there is a reason to sit.",
     facts: ["Board 86 by 19 mm", "Hidden fixings", "Frame clear of soil"],
   },
   {
     id: "paving",
-    n: "02",
+    kind: "Clay and limestone",
     title: "Paving",
     body: "Clay or limestone on a base we compact and check. The surface is the last course, not the first decision.",
     facts: ["Base 100 to 150 mm", "Sand bed 30 mm", "Falls to a drain"],
   },
   {
     id: "retaining",
-    n: "03",
+    kind: "Limestone courses",
     title: "Retaining",
     body: "Limestone courses, drained at the back, stepped to the fall of the block. A wall that holds a level.",
     facts: ["Ag drain at the heel", "No fines against the face", "Capping that sheds"],
   },
   {
     id: "planting",
-    n: "04",
+    kind: "Local planting",
     title: "Planting",
     body: "Banksia, lomandra and kangaroo paw. Mulch, a hose point, and water only where a plant earns it.",
     facts: ["Local species", "Mulch 75 mm", "One hose point"],

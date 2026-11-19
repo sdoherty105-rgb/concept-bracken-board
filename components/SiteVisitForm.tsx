@@ -168,7 +168,7 @@ export default function SiteVisitForm({ fromQuery = false }: Props) {
         aria-describedby={errors.window ? "v-window-error" : undefined}
       >
         <legend className="label">
-          1. Pick a window <span className="field__req" aria-hidden="true">*</span>
+          Pick a window <span className="field__req" aria-hidden="true">*</span>
         </legend>
         {windows.map((w, i) => (
           <label key={w} className="window-opt" htmlFor={`v-window-${i}`}>
@@ -188,7 +188,7 @@ export default function SiteVisitForm({ fromQuery = false }: Props) {
         {err("window")}
       </fieldset>
 
-      <p className="label form__step">2. Where and who</p>
+      <p className="label form__step">Where and who</p>
       <div className="field">
         <label htmlFor="v-name">Your name <span className="field__req" aria-hidden="true">*</span></label>
         <input type="text" autoComplete="name" required value={values.name} onChange={set("name")} {...field("name")} />

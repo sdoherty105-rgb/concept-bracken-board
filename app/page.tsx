@@ -62,8 +62,8 @@ export default function Home() {
         <nav className="hero__strip" data-layout="trade-strip" aria-label="Trades">
           {trades.map((t) => (
             <a key={t.id} href={`#${t.id}`}>
-              <span className="label">{t.n}</span>
               {t.title}
+              <span className="strip__kind">{t.kind}</span>
             </a>
           ))}
         </nav>
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
         <div className="wall">
           <article id="decks" className="g-1-5 block-pad">
-            <p className="label">{trades[0].n}</p>
+            <p className="label">{trades[0].kind}</p>
             <h3>{trades[0].title}</h3>
             <p>{trades[0].body}</p>
           </article>
@@ -91,7 +91,7 @@ export default function Home() {
             Half a block over.
           </p>
           <article id="paving" className="g-3-5 block-pad">
-            <p className="label">{trades[1].n}</p>
+            <p className="label">{trades[1].kind}</p>
             <h3>{trades[1].title}</h3>
             <p>{trades[1].body}</p>
           </article>
@@ -101,7 +101,7 @@ export default function Home() {
             ))}
           </ul>
           <article id="retaining" className="g-1-8 block-pad block--raised">
-            <p className="label">{trades[2].n}</p>
+            <p className="label">{trades[2].kind}</p>
             <h3>{trades[2].title}</h3>
             <p>{trades[2].body}</p>
             <ul className="fact-list fact-list--row">
@@ -115,7 +115,7 @@ export default function Home() {
             A wall is only as good as the drain behind it.
           </p>
           <article id="planting" className="g-1-6 block-pad">
-            <p className="label">{trades[3].n}</p>
+            <p className="label">{trades[3].kind}</p>
             <h3>{trades[3].title}</h3>
             <p>{trades[3].body}</p>
           </article>
