@@ -1,20 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import ConceptPlate from "@/components/ConceptPlate";
 
-export const metadata = { title: "Page not found" };
+export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
-    <section className="section">
-      <div className="container container--narrow">
-        <p className="eyebrow">404</p>
-        <h1 className="h2">This page is out of bounds.</h1>
-        <p className="lede">The page you are after does not exist on this concept site.</p>
-        <p>
-          <Link href="/" className="btn">
-            Back to the home page
-          </Link>
-        </p>
-      </div>
-    </section>
+    <header className="title-course">
+      <p className="label">404</p>
+      <h1>This course is not on the wall.</h1>
+      <p>The page is not part of this concept site.</p>
+      <p>
+        <Link href="/" className="text-link">
+          Back to the yard
+        </Link>
+      </p>
+      <ConceptPlate />
+    </header>
   );
 }

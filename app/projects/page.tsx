@@ -1,69 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CompareSlider from "@/components/CompareSlider";
+import ConceptPlate from "@/components/ConceptPlate";
+import Photo from "@/components/Photo";
+import ProjectPlate from "@/components/ProjectPlate";
 import { projects } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Transformations",
-  description: "Three before and after outdoor transformations from Bracken & Board, a fictional landscape builder. Illustrated, not real projects.",
+  title: "Projects",
+  description: "An OFF/SHIFT concept — fictional demonstration. Three outdoor projects: a courtyard deck, an entry path and a terraced garden.",
 };
 
 export default function ProjectsPage() {
+  const spans = [
+    { fig: "g-1-8", plate: "g-9-4" },
+    { fig: "g-5-8", plate: "g-1-4" },
+    { fig: "g-1-6", plate: "g-7-6" },
+  ];
   return (
     <>
-      <section className="page-head">
-        <div className="container">
-          <nav aria-label="Breadcrumb" className="crumbs">
-            <ol>
-              <li><Link href="/">Home</Link></li>
-              <li aria-current="page">Transformations</li>
-            </ol>
-          </nav>
-          <p className="eyebrow">Transformations</p>
-          <h1 className="h1">Before, and after.</h1>
-          <p className="lede">
-            Three fictional outdoor projects, shown as illustrations. In each one, drag the handle to move between the existing space and the
-            finished build.
-          </p>
+      <header className="title-course">
+        <p className="label">Projects</p>
+        <h1>Work on the ground.</h1>
+        <ConceptPlate />
+      </header>
+      <section className="course" aria-labelledby="index-title" data-layout="project-index">
+        <div className="course__intro">
+          <h2 id="index-title">Three records.</h2>
+          <p>Each plate is a fictional project record: year, area, crew and materials. None of this work was built for a client.</p>
         </div>
-      </section>
-
-      {projects.map((p, i) => (
-        <section key={p.id} className={`section project${i % 2 ? " section--stone" : ""}`} id={p.id} aria-labelledby={`${p.id}-title`}>
-          <div className="container">
-            <div className="project__head">
-              <p className="eyebrow">{`0${i + 1}, ${p.kicker}`}</p>
-              <h2 id={`${p.id}-title`} className="h2">{p.title}</h2>
+        {projects.map((p, i) => (
+          <article key={p.id} className="wall project-row" aria-labelledby={`${p.id}-title`}>
+            <Link href={`/projects/${p.id}`} prefetch={false} className={`plate-fig ${spans[i].fig}`}>
+              <Photo plate={p.after} sizes="(min-width: 768px) 60vw, 100vw" priority={i === 0} />
+              <span className="visually-hidden">Open {p.title}</span>
+            </Link>
+            <div className={spans[i].plate}>
+              <h3 id={`${p.id}-title`} className="visually-hidden">
+                {p.title}
+              </h3>
+              <ProjectPlate project={p} />
             </div>
-            <div className="feature">
-              <CompareSlider before={p.before} after={p.after} title={p.title} />
-              <div className="feature__meta">
-                <p>{p.brief}</p>
-                <h3 className="meta-h">What we did</h3>
-                <ul className="ticks">
-                  {p.scope.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-                <h3 className="meta-h">Materials</h3>
-                <ul className="chips" aria-label="Materials">
-                  {p.materials.map((m) => (
-                    <li key={m}>{m}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-      ))}
-
-      <section className="cta-band on-dark" aria-labelledby="cta-title">
-        <div className="container cta-band__inner">
-          <h2 id="cta-title" className="h2">Have a space in mind?</h2>
-          <Link href="/#quote" className="btn btn--light">
-            Request a quote
-          </Link>
-        </div>
+          </article>
+        ))}
       </section>
     </>
   );

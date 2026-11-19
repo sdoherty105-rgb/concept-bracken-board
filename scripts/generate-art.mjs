@@ -1,10 +1,11 @@
-// Generates the original SVG illustrations in /public/art.
+// Generates the original SVG scenes in /art. scripts/render-scenes.mjs and
+// scripts/develop-photos.py turn them into the photographic plates in /public/photos.
 // Run with: node scripts/generate-art.mjs
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "public", "art");
+const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "art");
 mkdirSync(OUT, { recursive: true });
 
 const C = {
@@ -419,57 +420,6 @@ function terraceAfter() {
   return svg(W, H, "Garden after: limestone terrace wall, planted beds, stepping stones and a timber pergola", s);
 }
 
-// ---------- Hero ----------
-function hero() {
-  const HW = 1000;
-  const HH = 1200;
-  let s = `<rect width="${HW}" height="${HH}" fill="#F1ECE0"/>`;
-  s += `<circle cx="700" cy="250" r="150" fill="${C.stone}"/>`;
-  s += `<rect y="470" width="${HW}" height="330" fill="#E3DACA"/>`;
-  s += `<rect y="440" width="${HW}" height="40" fill="${C.timber}"/><rect y="480" width="${HW}" height="14" fill="#000" opacity=".12"/>`;
-  for (let x = 0; x < HW; x += 36) s += `<rect x="${x}" y="440" width="2" height="40" fill="#000" opacity=".16"/>`;
-  s += `<rect x="90" y="520" width="820" height="270" fill="${C.forest}"/>`;
-  [100, 300, 500, 700].forEach((x, i) => {
-    s += `<rect x="${x}" y="532" width="190" height="246" fill="${i % 2 ? "#33493C" : "#3A5043"}"/>`;
-    s += `<polygon points="${x},532 ${x + 110},532 ${x},${532 + 190}" fill="#fff" opacity=".07"/>`;
-  });
-  s += `<rect x="520" y="620" width="260" height="26" fill="#F3E3B0" opacity=".16"/>`;
-  s += `<rect y="790" width="${HW}" height="10" fill="#C2B8A2"/>`;
-  const deck = { yb: 800, yf: HH, xlb: 0, xrb: HW, xlf: 0, xrf: HW };
-  s += boardField(deck, { rows: 22, shades: ["#8B6D4E", "#7D6144", "#957652", "#836849"], gap: "#4E3C29", seed: 8, pow: 1.9 });
-  s += `<ellipse cx="560" cy="1010" rx="320" ry="30" fill="#000" opacity=".2"/>`;
-  s += `<rect x="330" y="930" width="460" height="26" rx="3" fill="${C.stone}"/><rect x="330" y="930" width="460" height="7" fill="#fff" opacity=".6"/>`;
-  [370, 740].forEach((x) => (s += `<rect x="${x}" y="956" width="12" height="62" fill="#CFC6B2"/>`));
-  [[330, 80], [470, 80], [610, 80]].forEach(([x]) => {
-    s += `<rect x="${x}" y="1022" width="110" height="18" rx="3" fill="${C.sage}"/><rect x="${x + 6}" y="1040" width="8" height="42" fill="#5E7050"/><rect x="${x + 96}" y="1040" width="8" height="42" fill="#5E7050"/>`;
-  });
-  s += `<rect x="470" y="905" width="64" height="26" rx="13" fill="${C.forest}" opacity="0"/>`;
-  s += `<rect x="440" y="900" width="14" height="30" rx="4" fill="${C.forest}"/><circle cx="447" cy="893" r="10" fill="#F3E3B0"/>`;
-  s += `<rect x="640" y="898" width="40" height="32" rx="4" fill="${C.forest}"/>`;
-  s += `<rect x="640" y="898" width="40" height="6" fill="#33493C"/>`;
-  s += tree(150, 810, { h: 540, canopy: 120, seed: 4 });
-  let wall = "";
-  const rnd = mulberry32(5);
-  const tones = ["#E3DCCB", "#D8CFBB", "#EAE3D3"];
-  for (let r = 0; r < 3; r++) {
-    let x = 720 - (r % 2 ? 40 : 0);
-    while (x < HW + 80) {
-      const bw = 110 + rnd() * 50;
-      wall += `<rect x="${r1(x)}" y="${1060 - (r + 1) * 48}" width="${r1(bw - 3)}" height="45" rx="2" fill="${tones[Math.floor(rnd() * tones.length)]}"/>`;
-      x += bw;
-    }
-  }
-  s += `<rect x="720" y="1040" width="300" height="24" fill="#000" opacity=".0"/>`;
-  s += `<ellipse cx="880" cy="1068" rx="170" ry="12" fill="#000" opacity=".2"/>` + wall;
-  s += `<rect x="720" y="912" width="300" height="12" fill="#EEE8D9"/>`;
-  s += `<rect x="720" y="924" width="300" height="0" fill="#4B3B2B"/>`;
-  s += shrub(790, 914, { r: 50, seed: 3 }) + shrub(930, 912, { r: 56, seed: 6 });
-  s += grass(860, 914, { n: 16, h: 120, color: "#A6B396", seed: 10, width: 2.8 });
-  s += grass(40, 1150, { n: 16, h: 100, spread: 62, color: C.sage, seed: 14 });
-  s += shrub(960, 1190, { r: 70, seed: 22 });
-  return svg(HW, HH, "Illustration of a timber deck outdoor room with dining table, garden planting and a limestone wall", s);
-}
-
 const files = {
   "deck-before.svg": deckBefore(),
   "deck-after.svg": deckAfter(),
@@ -477,7 +427,6 @@ const files = {
   "entry-after.svg": pathAfter(),
   "garden-before.svg": terraceBefore(),
   "garden-after.svg": terraceAfter(),
-  "hero.svg": hero(),
 };
 
 for (const [name, content] of Object.entries(files)) {

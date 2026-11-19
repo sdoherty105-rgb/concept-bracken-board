@@ -3,45 +3,38 @@ import { SITE } from "@/lib/content";
 
 export default function SiteFooter() {
   return (
-    <footer className="site-footer on-dark">
-      <div className="container site-footer__grid">
-        <div className="site-footer__brand">
-          <p className="site-footer__name">{SITE.name}</p>
-          <p>Landscaping and outdoor construction. Decks, paving and gardens, designed and built as one.</p>
-        </div>
-        <nav aria-label="Footer" className="site-footer__col">
-          <h2 className="site-footer__h">Explore</h2>
-          <ul>
-            <li><Link href="/#services">Services</Link></li>
-            <li><Link href="/#transformations">Transformations</Link></li>
-            <li><Link href="/#process">Process</Link></li>
-            <li><Link href="/#materials">Materials</Link></li>
-            <li><Link href="/projects">All projects</Link></li>
-            <li><Link href="/#quote">Request a quote</Link></li>
-          </ul>
-        </nav>
-        <div className="site-footer__col">
-          <h2 className="site-footer__h">Studio</h2>
-          <address>
-            <p>Studio and yard visits by appointment</p>
-            <p>Perth, Western Australia</p>
-            <p>{SITE.email}</p>
-            <p>{SITE.phone}</p>
-          </address>
-        </div>
+    <footer className="wall foot">
+      <div className="g-1-5 foot__pad">
+        <p className="label">Bracken &amp; Board</p>
+        <p>We draw it, then we build it. Limestone, jarrah, clay and gravel, laid in courses.</p>
       </div>
-      <div className="container">
-        <div className="site-footer__legal">
+      <div className="g-6-4 foot__pad">
+        <p className="label">Fictional yard</p>
+        <p>Perth, Western Australia</p>
         <p>
-          {SITE.name} is a fictional business. The projects, prices and contact details on this site are invented for demonstration, and the
-          forms do not send anything.
+          <a href={SITE.phoneHref}>{SITE.phone}</a>
         </p>
         <p>
-          <a href={SITE.conceptUrl} rel="noopener">
-            {SITE.conceptLabel}
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
+        <p className="fine">These contact details are invented.</p>
+      </div>
+      <div className="g-10-3 block--jarrah foot__pad">
+        <p className="label">OFF/SHIFT Studio</p>
+        <p className="fine">{SITE.disclosure}</p>
+        <p>
+          <a href={SITE.studioContactUrl} className="foot__cta">
+            {SITE.studioCta}
           </a>
         </p>
-        </div>
+        <p>
+          <a href={SITE.conceptUrl}>Back to the OFF/SHIFT concept page</a>
+        </p>
+        <p>
+          <Link href="/guarantee" prefetch={false}>
+            Demonstration terms
+          </Link>
+        </p>
       </div>
     </footer>
   );
