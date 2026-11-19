@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
     <article data-layout="project-record">
       <header className="title-course">
         <p className="label">
-          Project {project.no} / {project.site}
+          {project.site}
         </p>
         <h1>{project.title}</h1>
         <ConceptPlate />

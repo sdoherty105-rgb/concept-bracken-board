@@ -3,7 +3,6 @@ import type { Project } from "@/lib/content";
 export default function ProjectPlate({ project }: { project: Project }) {
   return (
     <aside className="plaque" aria-label={`${project.title} site plate`}>
-      <p className="label">{project.no}</p>
       <p className="plaque__name">{project.title}</p>
       <dl className="plaque__facts">
         <div>
