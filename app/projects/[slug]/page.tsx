@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!project) return { title: "Project" };
   return {
     title: project.title,
-    description: `An OFF/SHIFT concept — fictional demonstration. ${project.brief}`,
+    description: `An OFF/SHIFT concept: fictional demonstration. ${project.brief}`,
   };
 }
 

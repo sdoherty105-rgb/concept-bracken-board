@@ -1,7 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import path_ from "node:path";
 
-const LABEL = "An OFF/SHIFT concept — fictional demonstration";
+const LABEL = "An OFF/SHIFT concept: fictional demonstration";
+// sha256 of public/brand/offshift-wordmark-light.svg in sdoherty105-rgb/offshift-studio, unaltered.
+const CANONICAL_WORDMARK_SHA256 = "2aeb99ff7e3dd000eefd861a936a05be5fc526b510781102cf7426e95cb115ca";
 const CONCEPT_URL = "https://offshiftstudio.com.au/concepts/bracken-board";
 const pages = [
   { path: "/", h1: /built to last outside\./i },
@@ -192,6 +197,31 @@ test.describe("site-visit form (demo only)", () => {
     await page.goto("/");
     const order = await page.locator("#visit .wall > *").evaluateAll((els) => els.map((e) => e.className));
     expect(order[0]).toMatch(/visit-form/);
+  });
+});
+
+test.describe("footer credit", () => {
+  for (const path of ["/", "/materials", "/projects", "/guarantee", "/takeoff", "/does-not-exist"]) {
+    test(`${path} credits OFF/SHIFT Studio with the canonical wordmark`, async ({ page, request }) => {
+      await page.goto(path);
+      const link = page.getByRole("contentinfo").getByRole("link", { name: "OFF/SHIFT Studio", exact: true });
+      await expect(link).toHaveAttribute("href", "https://offshiftstudio.com.au");
+      await expect(link).toHaveAttribute("rel", /noopener/);
+      const img = link.getByRole("img", { name: "OFF/SHIFT Studio" });
+      const src = await img.getAttribute("src");
+      expect(src).toBe("/brand/offshift-wordmark-light.svg");
+      const box = await img.boundingBox();
+      expect(box!.width).toBeGreaterThanOrEqual(72);
+      expect(box!.width).toBeLessThanOrEqual(96);
+      const served = await (await request.get(src!)).body();
+      const canonical = readFileSync(path_.join(process.cwd(), "public/brand/offshift-wordmark-light.svg"));
+      expect(Buffer.compare(served, canonical)).toBe(0);
+    });
+  }
+
+  test("the wordmark is byte-equal to the canonical source", async () => {
+    const local = readFileSync(path_.join(process.cwd(), "public/brand/offshift-wordmark-light.svg"));
+    expect(createHash("sha256").update(local).digest("hex")).toBe(CANONICAL_WORDMARK_SHA256);
   });
 });
 

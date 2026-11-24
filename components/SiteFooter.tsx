@@ -35,6 +35,13 @@ export default function SiteFooter() {
             Demonstration terms
           </Link>
         </p>
+        <p className="foot__credit" data-footer-credit>
+          <span>Designed by</span>
+          <a href="https://offshiftstudio.com.au" rel="noopener" className="foot__credit-link">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/offshift-wordmark-light.svg" alt="OFF/SHIFT Studio" width={88} height={24} />
+          </a>
+        </p>
       </div>
     </footer>
   );

@@ -1141,6 +1141,27 @@ main {
   padding: 20px 22px 24px;
 }
 
+.foot__credit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.foot .foot__credit-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.foot__credit-link img {
+  display: block;
+  width: 88px;
+  height: auto;
+}
+
 .foot__cta {
   font-family: var(--font-display), Arial, sans-serif;
   font-weight: 800;
@@ -1484,10 +1505,6 @@ main {
 }
 
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .wall > * {
-    animation: course-in 220ms ease-out both;
-  }
-
   @supports (animation-timeline: view()) {
     .xsect .layer {
       animation: course-in linear both;
