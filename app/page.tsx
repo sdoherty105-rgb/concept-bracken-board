@@ -10,7 +10,7 @@ import { heroPlate, materials, projects, trades } from "@/lib/content";
 
 export const metadata = {
   description:
-    "An OFF/SHIFT concept — fictional demonstration. Bracken & Board lays limestone, jarrah and clay in courses.",
+    "An OFF/SHIFT concept: fictional demonstration. Bracken & Board lays limestone, jarrah and clay in courses.",
 };
 
 export default function Home() {

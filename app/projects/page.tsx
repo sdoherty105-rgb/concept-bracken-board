@@ -7,7 +7,7 @@ import { projects } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "An OFF/SHIFT concept — fictional demonstration. Three outdoor projects: a courtyard deck, an entry path and a terraced garden.",
+  description: "An OFF/SHIFT concept: fictional demonstration. Three outdoor projects: a courtyard deck, an entry path and a terraced garden.",
 };
 
 export default function ProjectsPage() {

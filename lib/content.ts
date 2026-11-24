@@ -2,7 +2,7 @@ export const SITE = {
   name: "Bracken & Board",
   slug: "bracken-board",
   conceptUrl: "https://offshiftstudio.com.au/concepts/bracken-board",
-  conceptLabel: "An OFF/SHIFT concept — fictional demonstration",
+  conceptLabel: "An OFF/SHIFT concept: fictional demonstration",
   /** OFF/SHIFT enquiry form, tagged with this concept. */
   studioContactUrl: "https://offshiftstudio.com.au/?concept=bracken-board#contact",
   studioCta: "Want a website like this?",
@@ -120,7 +120,7 @@ export const trades = [
     id: "paving",
     kind: "Clay and limestone",
     title: "Paving",
-    body: "Clay or limestone on a base we compact and check. The surface is the last course, not the first decision.",
+    body: "Clay or limestone on a base we compact and check. The surface is the last course laid.",
     facts: ["Base 100 to 150 mm", "Sand bed 30 mm", "Falls to a drain"],
   },
   {

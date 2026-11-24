@@ -5,7 +5,7 @@ import { parseTakeoff } from "@/lib/takeoff";
 
 export const metadata: Metadata = {
   title: "Takeoff",
-  description: "An OFF/SHIFT concept — fictional demonstration. Materials takeoff for a fictional builder. Not a quote.",
+  description: "An OFF/SHIFT concept: fictional demonstration. Materials takeoff for a fictional builder. Not a quote.",
 };
 
 type Search = { area?: string; depth?: string };
