@@ -1230,6 +1230,16 @@ main {
     padding: 10px 18px 12px;
   }
 
+  .concept-plate__label {
+    position: static;
+    color: var(--ink);
+    user-select: auto;
+  }
+
+  .concept-plate__label::after {
+    content: none;
+  }
+
   /* The request sits on the right, the takeoff on the left; the request comes first in the reading order. */
   .visit-wall > * {
     grid-row: 1;
@@ -1390,7 +1400,7 @@ main {
 
   .hero__copy {
     order: 0;
-    padding: 14px 14px 8px 14px;
+    padding: 8px 14px 6px;
   }
 
   .hero__photo {
@@ -1402,14 +1412,15 @@ main {
   .hero h1 {
     font-size: min(52px, 12.5vw);
     letter-spacing: -0.04em;
-    margin-bottom: 8px;
+    margin: 4px 0 6px;
   }
 
   .concept-plate {
-    padding: 2px 10px;
+    padding: 2px 10px 4px;
     row-gap: 0;
     min-height: 48px;
     align-content: center;
+    align-items: flex-start;
   }
 
   .concept-plate__note {
@@ -1425,30 +1436,49 @@ main {
   }
 
   .concept-plate__line {
-    font-size: 10px;
+    font-size: 11px;
     width: 100%;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 0 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .concept-plate__label {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .concept-plate__label,
-  .concept-plate a.concept-plate__cta {
+    align-items: center;
     min-height: 44px;
   }
 
+  .concept-plate__label {
+    position: relative;
+    flex: 1 1 12rem;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 4px 0;
+    white-space: normal;
+    line-height: 1.3;
+    align-items: center;
+    color: transparent;
+    user-select: none;
+  }
+
+  .concept-plate__label::after {
+    content: attr(data-banner-label);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+    white-space: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    pointer-events: none;
+  }
+
   .concept-plate a.concept-plate__cta {
-    flex-shrink: 0;
+    flex: 1 1 10rem;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+    min-height: 44px;
+    padding: 4px 0;
+    align-items: center;
   }
 
   .hero__copy,
