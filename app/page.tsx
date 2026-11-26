@@ -1,7 +1,6 @@
 import Link from "next/link";
 import BondBoard from "@/components/BondBoard";
 import CompareSlider from "@/components/CompareSlider";
-import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
 import ProjectPlate from "@/components/ProjectPlate";
 import SiteVisitForm from "@/components/SiteVisitForm";
@@ -22,17 +21,10 @@ export default function Home() {
         <div className="hero__copy">
           <p className="label hero__where">Landscaping, Perth</p>
           <h1 id="hero-title">
-            Built
+            Built to last
             <br />
-            to
-            <br />
-            last
-            <br />
-            outside.
+            <span className="hero__last">outside.</span>
           </h1>
-          <div className="hero__rule">
-            <ConceptPlate />
-          </div>
         </div>
         <figure className="hero__photo">
           <Photo
@@ -43,15 +35,11 @@ export default function Home() {
           />
           <svg className="survey" viewBox="0 0 2000 1333" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <g fill="none" stroke="#F4F0E6" strokeWidth="4">
-              <line x1="180" y1="1080" x2="1750" y2="1080" />
-              <line x1="180" y1="1056" x2="180" y2="1104" />
-              <line x1="1750" y1="1056" x2="1750" y2="1104" />
               <line x1="220" y1="360" x2="220" y2="860" />
               <line x1="196" y1="360" x2="244" y2="360" />
               <line x1="196" y1="860" x2="244" y2="860" />
             </g>
             <g fill="none" stroke="#241B14" strokeWidth="1.5">
-              <line x1="180" y1="1080" x2="1750" y2="1080" />
               <line x1="220" y1="360" x2="220" y2="860" />
             </g>
           </svg>

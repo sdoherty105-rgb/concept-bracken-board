@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import ConceptPlate from "@/components/ConceptPlate";
 import Ledger from "@/components/Ledger";
 import MobileDock from "@/components/MobileDock";
 import SiteFooter from "@/components/SiteFooter";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Ledger />
+        <ConceptPlate />
         <main id="main" data-unit="running-bond">
           {children}
         </main>

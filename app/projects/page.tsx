@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
 import ProjectPlate from "@/components/ProjectPlate";
 import { projects } from "@/lib/content";
@@ -21,7 +20,6 @@ export default function ProjectsPage() {
       <header className="title-course">
         <p className="label">Projects</p>
         <h1>Work on the ground.</h1>
-        <ConceptPlate />
       </header>
       <section className="course" aria-labelledby="index-title" data-layout="project-index">
         <div className="course__intro">

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CompareSlider from "@/components/CompareSlider";
-import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
 import ProjectPlate from "@/components/ProjectPlate";
 import { projectBySlug, projects } from "@/lib/content";
@@ -36,7 +35,6 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           {project.site}
         </p>
         <h1>{project.title}</h1>
-        <ConceptPlate />
       </header>
       <div className="wall project-record">
         <figure className="g-1-8 plate-fig">

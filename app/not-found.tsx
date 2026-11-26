@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ConceptPlate from "@/components/ConceptPlate";
-
 export const metadata: Metadata = { title: "Page not found" };
 
 export default function NotFound() {
@@ -15,7 +13,6 @@ export default function NotFound() {
           Back to the yard
         </Link>
       </p>
-      <ConceptPlate />
     </header>
   );
 }
