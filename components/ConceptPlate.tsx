@@ -7,13 +7,19 @@ import { SITE } from "@/lib/content";
 export default function ConceptPlate({ id }: { id?: string }) {
   return (
     <aside className="concept-plate" id={id} aria-label="About this concept site" data-testid="concept-plate">
-      <p className="concept-plate__label">
-        <a href={SITE.conceptUrl}>{SITE.conceptLabel}</a>
+      <p className="concept-plate__line">
+        <a
+          href={SITE.conceptUrl}
+          className="concept-plate__label"
+          data-banner-label={SITE.conceptBannerLabel}
+        >
+          {SITE.conceptLabel}
+        </a>
+        <a className="concept-plate__cta" href={SITE.studioContactUrl}>
+          {SITE.studioCta}
+        </a>
       </p>
       <p className="concept-plate__note">{SITE.disclosure}</p>
-      <a className="concept-plate__cta" href={SITE.studioContactUrl}>
-        {SITE.studioCta}
-      </a>
     </aside>
   );
 }

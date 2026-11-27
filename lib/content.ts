@@ -3,6 +3,8 @@ export const SITE = {
   slug: "bracken-board",
   conceptUrl: "https://offshiftstudio.com.au/concepts/bracken-board",
   conceptLabel: "An OFF/SHIFT concept: fictional demonstration",
+  /** Short banner wording on narrow screens; full conceptLabel stays on aria-label for tests and metadata. */
+  conceptBannerLabel: "Fictional concept by OFF/SHIFT Studio",
   /** OFF/SHIFT enquiry form, tagged with this concept. */
   studioContactUrl: "https://offshiftstudio.com.au/?concept=bracken-board#contact",
   studioCta: "Want a website like this?",

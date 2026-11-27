@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import ConceptPlate from "@/components/ConceptPlate";
 import BondBoard from "@/components/BondBoard";
 import { parseTakeoff } from "@/lib/takeoff";
 
@@ -18,7 +17,6 @@ export default async function TakeoffPage({ searchParams }: { searchParams: Prom
       <p className="label">Demonstration takeoff</p>
       <h1>The bond board.</h1>
       <p>These densities and pallet counts are invented. Nothing here is a quote.</p>
-      <ConceptPlate />
       <BondBoard initialArea={result.area} initialDepth={result.depth} />
     </header>
   );

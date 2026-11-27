@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import ConceptPlate from "@/components/ConceptPlate";
 import Photo from "@/components/Photo";
 import { materials } from "@/lib/content";
 
@@ -19,7 +18,6 @@ export default function MaterialsPage() {
         <div className="lead-specimen__copy">
           <p className="label">Materials</p>
           <h1>The specimen wall.</h1>
-          <ConceptPlate />
         </div>
         <figure>
           <Photo plate={limestone.plate} sizes="(min-width: 768px) 58vw, 100vw" priority />

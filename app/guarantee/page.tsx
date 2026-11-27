@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ConceptPlate from "@/components/ConceptPlate";
 import { guarantee } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -20,7 +19,6 @@ export default function GuaranteePage() {
           <br />
           on the work.
         </h1>
-        <ConceptPlate />
       </header>
       <section className="course" aria-labelledby="terms-title" data-layout="terms">
         <div className="course__intro">
